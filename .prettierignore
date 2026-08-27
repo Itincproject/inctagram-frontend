@@ -4,4 +4,3 @@ out
 build
 pnpm-lock.yaml
 package.json
-stylelint.config.mjs

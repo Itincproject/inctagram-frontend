@@ -1,7 +1,5 @@
-import standardScss from 'stylelint-config-standard-scss'
-
 const config = {
-    extends: [standardScss],
+    extends: ['stylelint-config-standard-scss'],
 }
 
 export default config
