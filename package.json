@@ -1,35 +1,4 @@
 {
-    "name": "inctagram",
-    "version": "0.1.0",
-    "private": true,
-    "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start",
-        "lint": "eslint",
-        "format:check": "prettier . --check",
-        "format:fix": "prettier . --write",
-        "stylelint:check": "stylelint '**/*.{css,scss}'",
-        "stylelint:fix": "stylelint '**/*.{css,scss}' --fix"
-    },
-    "dependencies": {
-        "next": "16.3.2",
-        "react": "19.2.8",
-        "react-dom": "19.2.8"
-    },
-    "devDependencies": {
-        "@types/node": "^20",
-        "@types/react": "^19",
-        "@types/react-dom": "^19",
-        "eslint": "^9",
-        "eslint-config-next": "16.3.2",
-        "eslint-config-prettier": "^10.1.8",
-        "prettier": "^3.9.6",
-        "stylelint": "^17.14.1",
-        "stylelint-config-standard-scss": "^17.0.0",
-        "typescript": "^5"
-    },
-    "packageManager": "pnpm@11.15.1"
   "name": "inctagram",
   "version": "0.1.0",
   "private": true,
@@ -38,6 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "format:check": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "stylelint:check": "stylelint '**/*.{css,scss}'",
+    "stylelint:fix": "stylelint '**/*.{css,scss}' --fix",
     "build:production": "pnpm build"
   },
   "dependencies": {
@@ -51,6 +24,10 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.2",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.9.6",
+    "stylelint": "^17.14.1",
+    "stylelint-config-standard-scss": "^17.0.0",
     "typescript": "^5"
   },
   "packageManager": "pnpm@11.15.1"
