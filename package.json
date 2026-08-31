@@ -14,9 +14,12 @@
     "build:production": "pnpm build"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
     "next": "16.3.2",
     "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "react-dom": "19.2.8",
+    "react-hook-form": "^7.86.0",
+    "react-redux": "^9.3.0"
   },
   "devDependencies": {
     "@types/node": "^20",
