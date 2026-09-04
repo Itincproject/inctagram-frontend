@@ -1,0 +1,57 @@
+.scroll {
+    box-sizing: border-box;
+    scrollbar-color: #4c4c4c transparent;
+    scrollbar-width: thin;
+}
+
+.vertical {
+    overflow: hidden auto;
+    padding: 5px;
+}
+
+.vertical::-webkit-scrollbar {
+    width: 14px;
+}
+
+.vertical::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.vertical::-webkit-scrollbar-thumb {
+    width: 4px;
+    min-height: 14px;
+    background-color: #4c4c4c;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    background-clip: content-box;
+}
+
+.vertical:hover::-webkit-scrollbar-thumb {
+    background-color: #b7b7b7;
+}
+
+.horizontal {
+    overflow: auto hidden;
+    padding: 5px;
+}
+
+.horizontal::-webkit-scrollbar {
+    height: 14px;
+}
+
+.horizontal::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.horizontal::-webkit-scrollbar-thumb {
+    height: 4px;
+    min-width: 14px;
+    background-color: #4c4c4c;
+    border: 5px solid transparent;
+    border-radius: 5px;
+    background-clip: content-box;
+}
+
+.horizontal:hover::-webkit-scrollbar-thumb {
+    background-color: #b7b7b7;
+}
