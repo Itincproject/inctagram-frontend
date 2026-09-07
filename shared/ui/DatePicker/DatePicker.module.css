@@ -1,0 +1,410 @@
+.wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: max-content;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.label {
+    width: max-content;
+    height: 24px;
+    margin-bottom: 0;
+    color: #8d9094;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.input {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 158px;
+    height: 36px;
+    padding: 6px 12px;
+    border: 1px solid #333333;
+    border-radius: 2px;
+    background: #171717;
+    color: #ffffff;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.rangeInput {
+    width: 262px;
+}
+
+.input:hover:not(:disabled) {
+    border-color: #4c4c4c;
+}
+
+.input:focus-visible,
+.focus {
+    border: 2px solid #2f68cc;
+    outline: none;
+}
+
+.placeholder {
+    color: #8d9094;
+}
+
+.value {
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.error {
+    border-color: #cc1439;
+    color: #cc1439;
+}
+
+.error .value,
+.error .placeholder {
+    color: #cc1439;
+}
+
+.errorMessage {
+    width: max-content;
+    height: 16px;
+    margin-top: 0;
+    color: #cc1439;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+}
+
+.disabled {
+    border-color: #333333;
+    background: #171717;
+    color: #4c4c4c;
+    cursor: not-allowed;
+}
+
+.disabled .placeholder,
+.disabled .value {
+    color: #4c4c4c;
+}
+
+.calendarIcon {
+    flex: 0 0 24px;
+    width: 24px;
+    height: 24px;
+    color: currentColor;
+    filter: invert(1);
+}
+
+.disabled .calendarIcon {
+    opacity: 0.35;
+}
+
+.calendar {
+    position: absolute;
+    top: calc(100% + 1px);
+    left: 0;
+    z-index: 20;
+    box-sizing: border-box;
+    width: 300px;
+    padding: 16px 24px;
+    border: 1px solid #333333;
+    border-radius: 2px;
+    background: #171717;
+    color: #ffffff;
+}
+
+.dayPicker {
+    display: block;
+    width: 252px;
+    min-width: 252px;
+    max-width: 252px;
+    margin: 0;
+    color: #ffffff;
+    font-family: Inter, Arial, sans-serif;
+}
+
+.dayPicker :global(.rdp-months),
+.dayPicker :global(.rdp-month),
+.dayPicker :global(.rdp-table),
+.dayPicker :global(.rdp-weeks) {
+    width: 252px !important;
+    min-width: 252px !important;
+    max-width: 252px !important;
+}
+
+.dayPicker :global(.rdp-table) {
+    table-layout: fixed !important;
+    border-spacing: 0;
+}
+
+.month {
+    position: relative;
+    width: 252px;
+}
+
+.monthCaption {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 252px;
+    height: 36px;
+    margin-bottom: 12px;
+    padding: 0 0 0 8px;
+    box-sizing: border-box;
+}
+
+.captionLabel {
+    width: 156px;
+    height: 24px;
+    overflow: hidden;
+    color: #ffffff;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.nav {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex: 0 0 72px;
+    width: 72px;
+    height: 36px;
+    gap: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 2;
+}
+
+.navButton {
+    box-sizing: border-box;
+    display: grid;
+    flex: 0 0 36px;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: #4c4c4c;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.navButton:hover:not(:disabled) {
+    background: #4c4c4c;
+}
+
+.chevron {
+    display: block;
+    flex: 0 0 20px;
+    width: 20px;
+    height: 20px;
+    color: #ffffff;
+    filter: brightness(0) invert(1);
+}
+
+.weekday {
+    box-sizing: border-box;
+    width: 36px;
+    height: 40px;
+    padding: 8px;
+    color: #8d9094;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.weekday:nth-child(6),
+.weekday:nth-child(7) {
+    color: #f23d61;
+}
+
+.monthGrid {
+    display: table;
+    width: 252px !important;
+    min-width: 252px !important;
+    max-width: 252px !important;
+    table-layout: fixed !important;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.monthGrid th,
+.monthGrid td {
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    padding: 0;
+}
+
+.weekdays {
+    display: table-header-group;
+    width: 252px !important;
+    min-width: 252px !important;
+    max-width: 252px !important;
+}
+
+.week {
+    display: table-row;
+    width: 252px !important;
+    height: 36px;
+}
+
+.day {
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    border: 0;
+}
+
+.dayButton {
+    box-sizing: border-box;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 14px;
+    background: transparent;
+    color: #ffffff;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.day:nth-child(6) .dayButton,
+.day:nth-child(7) .dayButton {
+    color: #f23d61;
+}
+
+.day:global(.rdp-outside) .dayButton {
+    color: #4c4c4c;
+}
+
+.day:global(.rdp-outside):nth-child(6) .dayButton,
+.day:global(.rdp-outside):nth-child(7) .dayButton {
+    color: #4c4c4c;
+}
+
+.day:global(.rdp-today) .dayButton {
+    color: #397df6;
+    font-weight: 700;
+}
+
+.day:global(.rdp-today):nth-child(6) .dayButton,
+.day:global(.rdp-today):nth-child(7) .dayButton {
+    color: #397df6;
+}
+
+.calendar :global(.rdp-selected) .dayButton {
+    background: #397df6;
+    color: #ffffff;
+}
+
+.calendar :global(.rdp-selected:nth-child(6)) .dayButton,
+.calendar :global(.rdp-selected:nth-child(7)) .dayButton {
+    color: #ffffff;
+}
+
+.calendar :global(.rdp-range_start) .dayButton,
+.calendar :global(.rdp-range_end) .dayButton {
+    background: #397df6;
+    color: #ffffff;
+}
+
+.calendar :global(.rdp-range_middle) {
+    background: #234e99;
+}
+
+.calendar :global(.rdp-range_start),
+.calendar :global(.rdp-range_middle),
+.calendar :global(.rdp-range_end) {
+    background: #234e99;
+}
+
+.calendar :global(.rdp-range_start) {
+    border-radius: 18px 0 0 18px;
+}
+
+.calendar :global(.rdp-range_end) {
+    border-radius: 0 18px 18px 0;
+}
+
+.calendar :global(.rdp-range_start.rdp-range_end) {
+    border-radius: 0;
+    background: transparent;
+}
+
+.calendar :global(.rdp-range_start.rdp-range_end) .dayButton {
+    border-radius: 14px;
+    background: #397df6;
+    color: #ffffff;
+}
+
+.calendar :global(.rdp-range_start) .dayButton,
+.calendar :global(.rdp-range_middle) .dayButton,
+.calendar :global(.rdp-range_end) .dayButton {
+    background: transparent;
+    color: #ffffff;
+}
+
+.calendar :global(.rdp-range_start:nth-child(6)) .dayButton,
+.calendar :global(.rdp-range_start:nth-child(7)) .dayButton,
+.calendar :global(.rdp-range_middle:nth-child(6)) .dayButton,
+.calendar :global(.rdp-range_middle:nth-child(7)) .dayButton,
+.calendar :global(.rdp-range_end:nth-child(6)) .dayButton,
+.calendar :global(.rdp-range_end:nth-child(7)) .dayButton {
+    color: #f23d61;
+}
+
+.calendar :global(.rdp-range_middle) .dayButton {
+    border-radius: 0;
+}
+
+.calendar :global(.rdp-range_middle:nth-child(6)) .dayButton,
+.calendar :global(.rdp-range_middle:nth-child(7)) .dayButton {
+    color: #ffffff;
+}
+
+.day:hover:not(:global(.rdp-disabled)) .dayButton {
+    background: #234e99;
+}
+
+.calendar :global(.rdp-selected:hover) .dayButton,
+.calendar :global(.rdp-range_start:hover) .dayButton,
+.calendar :global(.rdp-range_end:hover) .dayButton {
+    background: #397df6;
+}
+
+.day:focus-within .dayButton {
+    outline: 2px solid #397df6;
+    outline-offset: -2px;
+}
+
+.day:global(.rdp-disabled) .dayButton {
+    color: #4c4c4c;
+    cursor: not-allowed;
+}
