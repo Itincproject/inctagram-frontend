@@ -1,0 +1,44 @@
+.container {
+    height: 36px;
+    display: flex;
+    padding: 10px;
+}
+.item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-size: 14px;
+}
+.input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+.label {
+    color: var(--light-100);
+}
+.icon_container {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    border-radius: 50%;
+    background: transparent;
+    justify-content: center;
+    align-items: center;
+    color: var(--light-100);
+}
+.item:hover:not(:has(input:disabled)) .icon_container {
+    background-color: var(--dark-300);
+}
+.item:active:not(:has(input:disabled)) .icon_container {
+    background-color: var(--dark-100);
+}
+.item:has(input:focus) .icon_container {
+    background-color: var(--dark-500);
+}
+.item:has(input:disabled) .icon_container,
+.item:has(input:disabled) .label {
+    color: var(--dark-100);
+}
