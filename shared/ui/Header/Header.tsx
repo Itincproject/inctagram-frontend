@@ -1,7 +1,7 @@
 "use client";
 
 import {useState} from "react";
-import {Select, SelectOption} from "@/app/src/common/components/Select/Select";
+import {Select, SelectOption} from "@/shared/ui/Select/Select";
 import styles from "./Header.module.css"
 
 const languageOptions: SelectOption[] = [
