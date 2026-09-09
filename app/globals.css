@@ -1,3 +1,4 @@
+@import '../public/src/styles/color.css';
 :root {
     --background: #000;
     --foreground: #fff;

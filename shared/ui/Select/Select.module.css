@@ -1,0 +1,149 @@
+.selectContainer {
+    position: relative;
+    width: 163px;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    color: #FFFFFF;
+    user-select: none;
+}
+
+.label {
+    margin-bottom: 2px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #8D9094;
+}
+
+.selectBox {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    width: 163px;
+    height: 36px;
+    padding: 0 12px;
+    border: 1px solid #4C4C4C;
+    border-radius: 0;
+    background: transparent;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    position: relative;
+    transition: border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.selectBox:hover:not(:disabled) {
+    border-color: #8D9094;
+}
+
+.selectBox:focus-visible {
+    outline: none;
+    border: 2px solid #397DF6;
+    padding-left: 11px;
+    padding-right: 11px;
+}
+
+.selectBox.open {
+    border-color: #FFFFFF;
+    background-color: #171717;
+}
+
+.selectBox:disabled,
+.selectBox.disabled {
+    border-color: #4C4C4C;
+    color: #4C4C4C;
+    cursor: not-allowed;
+}
+
+.selectedValue {
+    display: flex;
+    align-items: center;
+    height: 24px;
+    flex: 1;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #FFFFFF;
+}
+
+.placeholder {
+    color: #8D9094;
+}
+
+.flag {
+    flex: 0 0 auto;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: 12px;
+}
+
+.arrow {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 24px;
+    margin-left: auto;
+    color: #FFFFFF;
+    transition: transform 0.2s ease;
+}
+
+.arrow svg {
+    width: 24px;
+    height: 24px;
+}
+
+.selectBox.open .arrow {
+    transform: rotate(180deg);
+}
+
+.optionsList {
+    position: absolute;
+    left: 0;
+    width: 163px;
+    box-sizing: border-box;
+    background: #171717;
+    border: 1px solid #FFFFFF;
+    border-radius: 0;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: auto;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.option {
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 36px;
+    padding: 0 12px;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-size: 16px;
+    line-height: 24px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: background-color 0.2s ease;
+}
+
+.option:hover {
+    background-color: #333333;
+}
+
+.option.selected {
+    color: #397DF6;
+    background-color: #333333;
+}
+
+.option .flag {
+    margin-right: 12px;
+}
