@@ -1,5 +1,5 @@
 import { Icon } from '../Icon/Icon';
-import styles from './UserSidebar.module.css';
+import styles from './Sidebar.module.css';
 
 const mainNavItems = [
   { label: 'Feed', iconName: 'home-outline' },
