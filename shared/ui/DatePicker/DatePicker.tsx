@@ -86,7 +86,12 @@ export const DatePicker = ({
             >
                 <span className={value ? styles.value : styles.placeholder}>{value || placeholder}</span>
 
-                <Icon name="calendar-outline" size={24} className={styles.calendarIcon} aria-hidden="true" />
+                <Icon
+                    name={isOpen ? 'calendar' : 'calendar-outline'}
+                    size={18}
+                    className={styles.calendarIcon}
+                    aria-hidden="true"
+                />
             </button>
 
             {error && <span className={styles.errorMessage}>{error}</span>}
