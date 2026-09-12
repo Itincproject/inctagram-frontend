@@ -239,5 +239,9 @@
 }
 
 .option-active {
+    background-color: transparent;
+}
+
+.option-active:hover {
     background-color: #2d2d2d;
 }
