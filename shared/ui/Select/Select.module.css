@@ -84,20 +84,25 @@
 }
 
 .arrow {
+    position: absolute;
+    top: 6px;
+    right: 12px;
     width: 24px;
     height: 24px;
     display: flex;
     align-items: center;
     justify-content: center;
-    flex: 0 0 24px;
-    margin-left: auto;
-    color: #FFFFFF;
-    transition: transform 0.2s ease;
+    color: #ffffff;
+    pointer-events: none;
+    transition: transform 0.15s ease;
 }
 
 .arrow svg {
-    width: 24px;
-    height: 24px;
+    display: block;
+}
+
+.arrowOpen {
+    transform: rotate(180deg);
 }
 
 .selectBox.open .arrow {
