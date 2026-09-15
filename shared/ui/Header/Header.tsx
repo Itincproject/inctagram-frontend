@@ -13,7 +13,7 @@ const languageOptions: SelectOption[] = [
     {
         value: 'ru',
         label: 'Русский',
-        flag: '/images/flags/ru.png',
+        flag: '/ru.png',
     },
 ];
 
