@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import styles from "./Select.module.css";
+import { Icon } from "../Icon/Icon";
 
 export interface SelectOption {
     value: string;
@@ -233,11 +234,7 @@ export const Select: FC<SelectProps> = ({
                 aria-expanded={active}
             >
                 {selectedOption?.flag && (
-                    <img
-                        src={selectedOption.flag}
-                        alt=""
-                        className={styles.flag}
-                    />
+                    <Icon name={selectedOption.flag} size={20} className={styles.flag} />
                 )}
 
                 <span
@@ -324,13 +321,7 @@ export const Select: FC<SelectProps> = ({
                                 }
                             >
                                 {option.flag && (
-                                    <img
-                                        src={option.flag}
-                                        alt=""
-                                        className={
-                                            styles.flag
-                                        }
-                                    />
+                                    <Icon name={option.flag} size={20} className={styles.flag} />
                                 )}
 
                                 <span
