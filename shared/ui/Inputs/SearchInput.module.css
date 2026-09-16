@@ -5,6 +5,11 @@
 	position: relative;
 }
 
+.inputWrapper {
+	position: relative;
+	width: 100%;
+}
+
 .input {
 	width: 100%;
 	height: 36px;
@@ -86,8 +91,6 @@
 	font-weight: 400;
 	color: #CC1439;
 	margin: 0;
-	position: absolute;
-	bottom: -20px;
 }
 
 .input:disabled {

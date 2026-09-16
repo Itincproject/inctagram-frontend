@@ -8,12 +8,12 @@ const languageOptions: SelectOption[] = [
     {
         value: 'en',
         label: 'English',
-        flag: '/en.png',
+        flag: 'Flag-United-Kingdom',
     },
     {
         value: 'ru',
         label: 'Русский',
-        flag: '/ru.png',
+        flag: 'Flag-Russia',
     },
 ];
 

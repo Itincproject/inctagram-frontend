@@ -15,17 +15,18 @@ export const SearchInput = ({ label, error, className, ...props }: SearchInputPr
   return (
     <div className={`${styles.container} ${error ? styles.error : ''} ${props.disabled ? styles.disabled : ''} ${className || ''}`}>
       
-			<Icon name="search-outline" size={20} className={styles.searchIcon} />
-
-      <input
-        className={`${styles.input} ${isClicked ? styles.clicked : ''}`}
-        onMouseDown={() => setIsClicked(true)}
-        onBlur={(e) => {
-          setIsClicked(false);
-          if (props.onBlur) props.onBlur(e);
-        }}
-        {...props}
-      />
+      <div className={styles.inputWrapper}>
+			  <Icon name="search-outline" size={20} className={styles.searchIcon} />
+        <input
+          className={`${styles.input} ${isClicked ? styles.clicked : ''}`}
+          onMouseDown={() => setIsClicked(true)}
+          onBlur={(e) => {
+            setIsClicked(false);
+            if (props.onBlur) props.onBlur(e);
+          }}
+          {...props}
+        />
+      </div>
 
       {error && (
         <p className={styles.errorText}>{error}</p>

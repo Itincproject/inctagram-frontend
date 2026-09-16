@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import styles from "./Select.module.css";
+import { Icon } from "../Icon/Icon";
 
 export interface SelectOption {
     value: string;
@@ -83,11 +84,7 @@ export const Select: FC<SelectProps> = ({
         }
 
         if (!active) {
-            setHighlightedValue(
-                value ??
-                options[0]?.value ??
-                null
-            );
+            setHighlightedValue(value ?? null);
         }
 
         setActive((prev) => !prev);
@@ -237,11 +234,7 @@ export const Select: FC<SelectProps> = ({
                 aria-expanded={active}
             >
                 {selectedOption?.flag && (
-                    <img
-                        src={selectedOption.flag}
-                        alt=""
-                        className={styles.flag}
-                    />
+                    <Icon name={selectedOption.flag} size={20} className={styles.flag} />
                 )}
 
                 <span
@@ -260,28 +253,26 @@ export const Select: FC<SelectProps> = ({
                 </span>
 
                 <span
-                    className={styles.arrow}
+                    className={`${styles.arrow} ${
+                        active ? styles.arrowOpen : ""
+                    }`}
                     aria-hidden="true"
                 >
-                    <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
-                        <path
-                            d={
-                                active
-                                    ? "M7 14L12 9L17 14"
-                                    : "M7 10L12 15L17 10"
-                            }
-                            stroke="currentColor"
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        />
-                    </svg>
-                </span>
+    <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+    >
+        <path
+            d="M7 10L12 15L17 10"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+    </svg>
+</span>
             </button>
 
             {active && (
@@ -296,7 +287,7 @@ export const Select: FC<SelectProps> = ({
                             highlightedValue;
 
                         const isSelected =
-                            option.value === value;
+                        option.value === value;
 
                         return (
                             <div
@@ -330,13 +321,7 @@ export const Select: FC<SelectProps> = ({
                                 }
                             >
                                 {option.flag && (
-                                    <img
-                                        src={option.flag}
-                                        alt=""
-                                        className={
-                                            styles.flag
-                                        }
-                                    />
+                                    <Icon name={option.flag} size={20} className={styles.flag} />
                                 )}
 
                                 <span
