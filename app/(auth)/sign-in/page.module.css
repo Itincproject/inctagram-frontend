@@ -1,0 +1,145 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #000;
+}
+
+.card {
+    width: 378px;
+    height: 504px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+    background: #171717;
+    border: 1px solid #333;
+    border-radius: 2px;
+}
+
+.title {
+    margin: 0;
+    color: #fff;
+    text-align: center;
+    font-family: Inter, sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.socialButtons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+    margin-top: 24px;
+}
+
+.socialButton {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.whiteIcon {
+    filter: brightness(0) invert(1);
+}
+
+.form {
+    width: 330px;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.passwordField {
+    position: relative;
+}
+
+.passwordInput input {
+    padding-right: 40px;
+}
+
+.passwordIcon {
+    position: absolute;
+    top: 24px;
+    right: 12px;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    border: none;
+    background: transparent;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.forgotPassword {
+    align-self: flex-end;
+    margin-top: 24px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #8d9094;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.signInButton {
+    width: 330px !important;
+    height: 36px !important;
+    margin-top: 24px;
+    padding: 6px 24px !important;
+    border: none !important;
+    border-radius: 2px !important;
+    background: #397df6 !important;
+    color: #fff !important;
+    font-family: Inter, sans-serif;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    line-height: 24px !important;
+    cursor: pointer;
+}
+
+.signUp {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 24px;
+    color: #fff;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+}
+
+.signUpButton {
+    margin-top: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #397df6;
+    font-family: Inter, sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    cursor: pointer;
+}
