@@ -1,13 +1,8 @@
-.invisible_wrapper {
-    display: flex;
-    flex-direction: column;
-    padding: 8px 7px;
-    border: none;
-    width: 314px;
-    height: 124px;
-}
 .error_wrapper {
     border: 1px solid #f00;
+    padding: 8px 7px;
+    width: 316px;
+    height: 126px;
 }
 .conteiner {
     height: 80px;
