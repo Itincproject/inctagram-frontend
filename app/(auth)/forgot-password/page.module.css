@@ -1,0 +1,19 @@
+.container {
+  width: 378px;
+  height: auto;
+  border: 1px solid var(--dark-300);
+  background-color: var(--dark-500);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  margin: 132px auto 0;
+}
+.title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 180%;
+  color: var(--light-100);
+  margin: 0 auto;
+  text-align: center;
+  margin-bottom: 37px;
+}
