@@ -1,38 +1,52 @@
-'use client'
-
-import { Icon } from '@/shared/ui/Icon/Icon'
-import { useState } from 'react'
-
+import { Button } from '../Button/Button'
+import { Icon } from '../Icon/Icon'
 import styles from './Alert.module.css'
 
-type AlertProps = {
-    variant: 'error' | 'success'
-    message: string
+type Props = {
+    open: boolean
+    title: string
+    text: string
+    email?: string
+    onClose?: () => void
+
+    isOneBtn?: boolean  
+    confirmText?: string
+    cancelText?: string
 }
 
-export const Alert = ({ variant, message }: AlertProps) => {
-    const [isVisible, setIsVisible] = useState(true)
-
-    if (!isVisible) {
-        return null
-    }
-
+export const AlertModal = ({ open, title, text, email, onClose, isOneBtn }: Props) => {
     return (
-        <div className={`${styles.alert} ${styles[variant]}`}>
-      <span className={styles.message}>
-        {variant === 'error' && <strong>Error!</strong>}
-          {variant === 'error' && ' '}
-          {message}
-      </span>
+        <>
+            {open && (
+                <div className={styles.overlay}>
+                    <div className={styles.content}>
+                        <div className={styles.header}>
+                            <h2 className={styles.title}>{title}</h2>
 
-            <button
-                className={styles.close}
-                type="button"
-                onClick={() => setIsVisible(false)}
-                aria-label="Close alert"
-            >
-                <Icon name="close" size={24} />
-            </button>
-        </div>
+                            <button className={styles.closeButton} aria-label="Close" onClick={onClose}>
+                                <Icon name="close-outline" size={24} className={styles.icon} />
+                            </button>
+                        </div>
+
+                        <div className={styles.body}>
+                            <p className={styles.text}>
+                                {text+' '}
+                                {email}
+                            </p>
+
+                            <div className={styles.actions}>
+                                {isOneBtn ?
+                                    <Button title="OK" variant="primary" onClick={onClose} />
+                                : <div className={styles.wrapperBtns}>
+                                    <Button title="OK" variant="outline" onClick={onClose} />
+                                    <Button title="No" variant="primary" onClick={onClose} />
+                                </div>}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     )
 }
+
