@@ -11,7 +11,7 @@ export type Props = {
 export const Recaptcha = ({ onClick, status }: Props) => {
     const errorMessage = {
         error: 'Please verify that you are not a robot',
-        expired: 'Verifiction expired. Check the checkbox again.',
+        expired: 'Verification expired. Check the checkbox again.',
     }
     const isError = status === 'error'
     const isExpired = status === 'expired'
@@ -27,6 +27,7 @@ export const Recaptcha = ({ onClick, status }: Props) => {
                         onChange={onClick}
                         className={styles.checkbox}
                         id="captcha"
+                        checked={status === 'success'}
                         disabled={status === 'loading' || status === 'success'}
                     />
                     <div className={styles.btn_container}>
@@ -45,13 +46,28 @@ export const Recaptcha = ({ onClick, status }: Props) => {
                 </div>
                 <div className={styles.logo_container}>
                     <Icon name="recaptcha" size={31} className={styles.logo} />
-                    <span>reCAPTCHA</span>
+                    <span>Cloudflare Turnstile</span>
+
                     <div className={styles.link_container}>
-                        <a className={styles.link} href="https://policies.google.com/privacy">
+                        <a
+                            className={styles.link}
+                            href="https://www.cloudflare.com/turnstile-privacy-policy/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             Privacy
                         </a>
-                        <span className={styles.separator}>-</span>
-                        <a className={styles.link} href="https://policies.google.com/terms">
+
+                        <span className={styles.separator}>
+                            -
+                        </span>
+
+                        <a
+                            className={styles.link}
+                            href="https://www.cloudflare.com/terms/"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             Terms
                         </a>
                     </div>
