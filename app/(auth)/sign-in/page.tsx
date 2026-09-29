@@ -1,57 +1,27 @@
 'use client'
 
-import { useState } from 'react'
-
 import { Button } from '@/shared/ui/Button/Button'
 import { Icon } from '@/shared/ui/Icon/Icon'
 import { Input } from '@/shared/ui/Inputs/Input'
 
 import styles from './page.module.css'
-
-type Errors = {
-    email?: string
-    password?: string
-}
+import { useLogin } from '@/features/auth/sign-in/model/useLogin'
 
 export default function SignIn() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [showPassword, setShowPassword] = useState(false)
-    const [errors, setErrors] = useState<Errors>({})
 
-    const handleEmailBlur = () => {
-        setErrors((prev) => ({
-            ...prev,
-            email: email.trim() ? undefined : 'Email is required',
-        }))
-    }
-
-    const handlePasswordBlur = () => {
-        setErrors((prev) => ({
-            ...prev,
-            password: password.trim() ? undefined : 'Password is required',
-        }))
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault()
-
-        const emailError = email.trim() ? undefined : 'Email is required'
-        const passwordError = password.trim()
-            ? undefined
-            : 'Password is required'
-
-        setErrors({
-            email: emailError,
-            password: passwordError,
-        })
-
-        if (emailError || passwordError) {
-            return
-        }
-
-        // Backend login will be added later.
-    }
+	   const {
+        email,
+        setEmail,
+        password,
+        setPassword,
+        showPassword,
+        setShowPassword,
+        errors,
+        handleEmailBlur,
+        handlePasswordBlur,
+        handleSubmit,
+    } = useLogin()
+    
 
     return (
         <main className={styles.page}>
