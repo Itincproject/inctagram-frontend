@@ -5,6 +5,7 @@ import { passwordReset } from '../../forgot-password/api'
 import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile'
 import { useRef, useState } from 'react'
 import { Alert } from '@/shared/ui/Alert/Alert'
+import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
 
 export const ExpiredLink = () => {
     const title = 'Email verification link expired'
@@ -41,7 +42,15 @@ export const ExpiredLink = () => {
 
     return (
         <>
-            {showModal && <Alert variant="success" message={'We sent link on your email'} />}
+            {showModal && (
+                <AlertModal
+                    open={showModal}
+                    title="Email sent"
+                    text="We have sent a link to confirm your email"
+                    isOneBtn={true}
+                    onClose={() => setShowModal(false)}
+                />
+            )}
             {error && <Alert variant="error" message={error} />}
             <Notice title={title} description={description} imageSrc="/expiredLink.svg">
                 <Turnstile
