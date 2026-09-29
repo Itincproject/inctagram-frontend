@@ -43,14 +43,14 @@ export const Recaptcha = ({ onClick, status, className }: Props) => {
                 </label>
             </div>
             <div className={styles.logo_container}>
-                <Icon name="recaptcha" size={31} className={styles.logo} />
-                <span>reCAPTCHA</span>
+                <Icon name="cloudCaptcha" size={31} className={styles.logo} />
+                <span>Cloudflare Turnstile</span>
                 <div className={styles.link_container}>
-                    <a className={styles.link} href="https://policies.google.com/privacy">
+                    <a className={styles.link} href="https://www.cloudflare.com/policies/privacy">
                         Privacy
                     </a>
                     <span className={styles.separator}>-</span>
-                    <a className={styles.link} href="https://policies.google.com/terms">
+                    <a className={styles.link} href="https://www.cloudflare.com/policies/terms">
                         Terms
                     </a>
                 </div>

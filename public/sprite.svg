@@ -1465,4 +1465,10 @@
   </defs>
 </svg>
 </symbol>
+<symbol id="cloudCaptcha" viewBox="0 0 24 24" >
+<path
+        fill="currentColor"
+        d="M19.35 10.04A7.49 7.49 0 0 0 5 8.5a5.5 5.5 0 0 0 .5 11h13.5a4.5 4.5 0 0 0 .35-8.96ZM19 17.5H5.5a3.5 3.5 0 1 1 .45-6.97l1.1.14.18-1.09A5.5 5.5 0 0 1 18 10.5v.5h1a3 3 0 0 1 0 6Z"
+    />  
+</symbol>
 </svg>

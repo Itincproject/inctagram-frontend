@@ -42,10 +42,11 @@
     font-weight: 500;
     font-size: 8px;
     color: var(--light-100);
+    margin-bottom: 3px;
 }
 .logo {
     align-self: center;
-    margin-bottom: 7px;
+    color: #c15f3c;
 }
 .link_container {
     display: flex;
