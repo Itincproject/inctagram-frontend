@@ -1,3 +1,4 @@
+import { LogoutButton } from '@/features/auth/log-out/ui/LogoutButton';
 import { Icon } from '../../shared/ui/Icon/Icon';
 import styles from './Sidebar.module.css';
 
@@ -37,10 +38,7 @@ export const Sidebar = () => {
       </nav>
 
       <div className={styles.bottomSection}>
-        <button className={styles.navItem} >
-          <Icon name="log-out-outline" size={24} />
-          <span>Log Out</span>
-        </button>
+        <LogoutButton/>
       </div>
     </aside>
   );

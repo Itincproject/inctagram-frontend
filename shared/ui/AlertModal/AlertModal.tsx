@@ -8,10 +8,11 @@ type Props = {
     text: string
     email?: string
     onClose?: () => void
+    onConfirm?: () => void
     isOneBtn?: boolean  
 }
 
-export const AlertModal = ({ open, title, text, email, onClose, isOneBtn }: Props) => {
+export const AlertModal = ({ open, title, text, email, onClose, onConfirm, isOneBtn }: Props) => {
     return (
         <>
             {open && (
@@ -35,7 +36,7 @@ export const AlertModal = ({ open, title, text, email, onClose, isOneBtn }: Prop
                                 {isOneBtn ?
                                     <Button title="OK" variant="primary" onClick={onClose} />
                                 : <div className={styles.wrapperBtns}>
-                                    <Button title="YES" variant="outline" onClick={onClose} />
+                                    <Button title="YES" variant="outline" onClick={onConfirm} />
                                     <Button title="NO" variant="primary" onClick={onClose} />
                                 </div>}
                             </div>

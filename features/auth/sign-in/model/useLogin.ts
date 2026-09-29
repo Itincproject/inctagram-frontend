@@ -68,6 +68,7 @@ export const useLogin = () => {
 
             const data = await response.json()
             localStorage.setItem('accessToken', data.accessToken)
+            localStorage.setItem('userEmail', email)
             router.push('/profile')
         } catch (err) {
             console.error('Login error:', err)
