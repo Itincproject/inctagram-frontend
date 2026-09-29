@@ -1,0 +1,25 @@
+.navItem {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    border: none;
+    background-color: transparent;
+}
+
+.navItem:focus-visible {
+    outline: 2px solid #2F68CC;
+    border-radius: 2px;
+}
+
+.navItem:hover {
+    color: #73A5FF;
+}
+
+.navItem:disabled {
+    color: #4C4C4C;
+}
