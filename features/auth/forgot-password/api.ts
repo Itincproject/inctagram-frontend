@@ -17,11 +17,11 @@
 
 // export const { usePasswordResetMutation } = forgotPasswordApi
 
-export async function passwordReset(email: string): Promise<void> {
+export async function passwordReset({ email, token }: { email: string; token: string }): Promise<void> {
     const res = await fetch('https://gateway.itincproject.site/api/v1/auth/password-recovery', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ email, token }),
     })
 
     if (res.status === 204) return
