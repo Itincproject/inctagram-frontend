@@ -24,6 +24,8 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
 
     const router = useRouter()
 
+    const isValidPassword = password.length > 0 && (password.length < 6 || password.length > 20)
+
     const showMatchError = confirmTouched && confirmPassword.length > 0 && password !== confirmPassword
 
     const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
@@ -31,7 +33,7 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
         setIsLoading(true)
         try {
             await CreateNewPassword({ newPassword: password, recoveryCode: code })
-            router.push('./sign-in')
+            router.push('/sign-in')
         } catch {
             onExpired()
         } finally {
@@ -65,7 +67,9 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
                 className={s.confirm_password}
                 error={showMatchError ? 'The passwords must match' : undefined}
             />
-            <span className={s.information}>Your password must be between 6 and 20 characters</span>
+            <span className={`${s.information} ${isValidPassword ? s.error : ''}`}>
+                Your password must be between 6 and 20 characters
+            </span>
             <Button title="Create New Password" variant="primary" type="submit" disabled={isLoading} fullWidth />
         </form>
     )
