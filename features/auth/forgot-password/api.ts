@@ -1,22 +1,3 @@
-// import { baseApi } from '@/shared/api'
-
-// type PasswordResetRequest = { email: string }
-// type PasswordResetResponse = void
-
-// export const forgotPasswordApi = baseApi.injectEndpoints({
-//     endpoints: (build) => ({
-//         passwordReset: build.mutation<PasswordResetResponse, PasswordResetRequest>({
-//             query: (body) => ({
-//                 url: 'auth/password-recovery',
-//                 method: 'POST',
-//                 body,
-//             }),
-//         }),
-//     }),
-// })
-
-// export const { usePasswordResetMutation } = forgotPasswordApi
-
 export async function passwordReset({ email, token }: { email: string; token: string }): Promise<void> {
     const res = await fetch('https://gateway.itincproject.site/api/v1/auth/password-recovery', {
         method: 'POST',

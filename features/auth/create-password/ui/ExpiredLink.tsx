@@ -55,7 +55,7 @@ export const ExpiredLink = () => {
             <Notice title={title} description={description} imageSrc="/expiredLink.svg">
                 <Turnstile
                     ref={turnstileRef}
-                    siteKey="0x4AAAAAAFHFBrAWSx9MHmNv"
+                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
                     options={{
                         execution: 'execute',
                         appearance: 'interaction-only',

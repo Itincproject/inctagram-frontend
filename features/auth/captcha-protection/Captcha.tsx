@@ -29,6 +29,7 @@ export const Captcha = ({ onSuccess, className }: Props) => {
                 onSuccess={(token) => {
                     setStatus('success')
                     onSuccess(token)
+                    turnstileRef.current?.reset()
                 }}
                 onError={() => setStatus('error')}
                 onEmptied={() => setStatus('expired')}

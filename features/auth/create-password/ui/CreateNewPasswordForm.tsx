@@ -31,6 +31,7 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
     const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
         setIsLoading(true)
+
         try {
             await CreateNewPassword({ newPassword: password, recoveryCode: code })
             router.push('/sign-in')
@@ -70,7 +71,13 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
             <span className={`${s.information} ${isValidPassword ? s.error : ''}`}>
                 Your password must be between 6 and 20 characters
             </span>
-            <Button title="Create New Password" variant="primary" type="submit" disabled={isLoading} fullWidth />
+            <Button
+                title="Create New Password"
+                variant="primary"
+                type="submit"
+                disabled={isLoading || isValidPassword || showMatchError}
+                fullWidth
+            />
         </form>
     )
 }

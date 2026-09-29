@@ -4,9 +4,10 @@ import { ChangeEvent, SubmitEventHandler, useState } from 'react'
 import s from './ForgotPassword.module.css'
 import { Input } from '@/shared/ui/Inputs/Input'
 import { Button } from '@/shared/ui/Button/Button'
-import { Recaptcha } from '@/shared/ui/Recaptcha'
 import { passwordReset } from '../api'
-// import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
+import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
+import { useRouter } from 'next/navigation'
+import { Captcha } from '../../captcha-protection/Captcha'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -17,10 +18,20 @@ export const ForgotPasswordForm = () => {
     const [showModal, setShowModal] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | undefined>(undefined)
+    const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+
+    const [emailTouched, setEmailTouched] = useState(false)
+
+    const handleToken = (token: string) => {
+        setCaptchaToken(token)
+    }
+
+    const router = useRouter()
 
     const isEmailValid = EMAIL_REGEX.test(email.trim())
+    const isEmailformatError = email.length > 0 && !isEmailValid && emailTouched
 
-    const isButtonDisabled = email.trim() === '' || isLoading
+    const isButtonDisabled = email.trim() === '' || isLoading || !captchaToken
 
     const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault()
@@ -32,13 +43,16 @@ export const ForgotPasswordForm = () => {
         setIsLoading(true)
 
         try {
-            await passwordReset(email.trim())
+            if (!captchaToken) return
+            await passwordReset({ email: email.trim(), token: captchaToken })
             setSendingEmail(true)
             setShowModal(true)
         } catch (error) {
             const message = error instanceof Error ? error.message : 'Что-то пошло не так'
+            setError(message)
         } finally {
             setIsLoading(false)
+            setCaptchaToken(null)
         }
     }
 
@@ -54,10 +68,16 @@ export const ForgotPasswordForm = () => {
                     }}
                     className={s.input}
                     error={error}
+                    onBlur={() => setEmailTouched(true)}
                 />
-                <span className={s.instruction}>
-                    Enter your email address and we will send you further instructions{' '}
-                </span>
+                {isEmailformatError ? (
+                    <span className={s.err_instruction}>The email must match the format example@example.com</span>
+                ) : (
+                    <span className={s.instruction}>
+                        Enter your email address and we will send you further instructions{' '}
+                    </span>
+                )}
+
                 {!sendingEmail && (
                     <>
                         <Button
@@ -68,9 +88,14 @@ export const ForgotPasswordForm = () => {
                             className={s.btn}
                         />
 
-                        <Button title="Back to Sign In" variant="text" className={s.btn} />
+                        <Button
+                            title="Back to Sign In"
+                            variant="text"
+                            className={s.btn}
+                            onClick={() => router.push('/sign-in')}
+                        />
 
-                        <Recaptcha status={'idle'} onClick={() => console.log('click')} className={s.recaptcha} />
+                        <Captcha onSuccess={handleToken} className={s.recaptcha} />
                     </>
                 )}
                 {sendingEmail && (
@@ -86,12 +111,19 @@ export const ForgotPasswordForm = () => {
                             className={s.btn}
                         />
 
-                        <Button title="Back to Sign In" variant="text" />
+                        <Button title="Back to Sign In" variant="text" onClick={() => router.push('/sign-in')} />
                     </>
                 )}
-                {/* {showModal && (
-                    <AlertModal title="Email sent" text="We have sent a link to confirm your email to" email={email} />
-                )} */}
+                {showModal && (
+                    <AlertModal
+                        open={showModal}
+                        title="Email sent"
+                        text="We have sent a link to confirm your email to"
+                        email={email}
+                        isOneBtn
+                        onClose={() => setShowModal(false)}
+                    />
+                )}
             </form>
         </>
     )
