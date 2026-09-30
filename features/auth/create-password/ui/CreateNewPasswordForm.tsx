@@ -57,7 +57,7 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
             />
             <Input
                 type={visible ? 'text' : 'password'}
-                label="Password Confirmations"
+                label="Password сonfirmations"
                 value={confirmPassword}
                 icon={visible ? <Icon name="eye" className={s.eyeIcon} /> : <Icon name="eye-off" />}
                 iconOnClick={() => setVisible(!visible)}
@@ -66,7 +66,7 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
                 }}
                 onBlur={() => setConfirmTouched(true)}
                 className={s.confirm_password}
-                error={showMatchError ? 'The passwords must match' : undefined}
+                error={showMatchError ? 'Passwords must match' : undefined}
             />
             <span className={`${s.information} ${isValidPassword ? s.error : ''}`}>
                 Your password must be between 6 and 20 characters
