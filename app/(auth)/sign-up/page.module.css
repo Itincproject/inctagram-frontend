@@ -1,5 +1,5 @@
 .page {
-    min-height: 100vh;
+    margin-top: 24px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,6 @@
 
 .card {
     width: 378px;
-    height: 504px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -17,6 +16,7 @@
     border: 1px solid #333;
     border-radius: 2px;
 }
+
 
 .title {
     margin: 0;
@@ -48,28 +48,28 @@
     cursor: pointer;
 }
 
+
+
 .whiteIcon {
     filter: brightness(0) invert(1);
 }
 
-.form {
-    width: 330px;
-    margin-top: 24px;
-    display: flex;
-    flex-direction: column;
-}
-
 .fields {
-    display: flex;
-    flex-direction: column;
+margin-top: 24px;
 }
 
 .passwordField {
     position: relative;
 }
 
+.passwordConfirmField {
+    position: relative;
+    margin-bottom: 0;
+}
+
 .passwordInput input {
     padding-right: 40px;
+    margin-bottom: 0;
 }
 
 .passwordIcon {
@@ -90,6 +90,7 @@
 
 .forgotPassword {
     align-self: flex-end;
+    margin-top: 24px;
     padding: 0;
     border: none;
     background: transparent;
@@ -101,27 +102,21 @@
     cursor: pointer;
 }
 
-.signInButton {
-    width: 330px !important;
-    height: 36px !important;
-    margin-top: 24px;
-    padding: 6px 24px !important;
-    border: none !important;
-    border-radius: 2px !important;
-    background: #397df6 !important;
-    color: #fff !important;
+.signUpButton {
     font-family: Inter, sans-serif;
-    font-size: 16px !important;
-    font-weight: 600 !important;
-    line-height: 24px !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-align: center;
     cursor: pointer;
+    max-width: 330px;
+    width: 100%;
 }
 
-.signUp {
+.signIn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 24px;
+    margin-top: 18px;
     color: #fff;
     font-family: Inter, sans-serif;
     font-size: 16px;
@@ -129,8 +124,8 @@
     line-height: 24px;
 }
 
-.signUpButton {
-    margin-top: 0;
+.signInLink {
+    margin-top: 18px;
     padding: 0;
     border: none;
     background: transparent;
@@ -140,4 +135,37 @@
     font-weight: 600;
     line-height: 24px;
     cursor: pointer;
+}
+
+.example {
+    text-decoration: underline;
+}
+
+.agreements {
+    padding: 0 6px;
+    display: flex;
+    align-items: center;
+    width: 330px;
+    height: 36px;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.agreementsText {
+    flex-grow: 1;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 133%;
+}
+
+.checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: white;
+}
+
+.checkboxLink {
+    color: #397df6;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
 }

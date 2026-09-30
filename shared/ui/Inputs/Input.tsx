@@ -44,9 +44,20 @@ export const Input = ({ label, error, icon, iconOnClick, className, placeholder,
         {...props}
       />
 
-      {error && (
-        <p className={styles.errorText}>{error}</p>
-      )}
+        {error && (
+            <p className={styles.errorText}>
+                {error}
+
+                {error === 'The email must match the format' && (
+                    <>
+                        {' '}
+                        <span className={styles.example}>
+                    example@exmple.com
+                </span>
+                    </>
+                )}
+            </p>
+        )}
     </div>
   );
 };
