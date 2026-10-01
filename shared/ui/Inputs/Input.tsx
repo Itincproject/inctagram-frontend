@@ -52,7 +52,7 @@ export const Input = ({ label, error, icon, iconOnClick, className, placeholder,
                     <>
                         {' '}
                         <span className={styles.example}>
-                    example@exmple.com
+                    example@exаmple.com
                 </span>
                     </>
                 )}
