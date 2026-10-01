@@ -62,7 +62,7 @@ export const ExpiredLink = () => {
                     }}
                     onSuccess={handleResendonSuccess}
                 />
-                <Button title="Sent Link Again" variant="primary" onClick={startCheckCaptcha} />
+                <Button title="Resend Link" variant="primary" onClick={startCheckCaptcha} />
             </Notice>
         </>
     )
