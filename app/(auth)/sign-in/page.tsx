@@ -6,10 +6,10 @@ import { Input } from '@/shared/ui/Inputs/Input'
 
 import styles from './page.module.css'
 import { useLogin } from '@/features/auth/sign-in/model/useLogin'
+import Link from 'next/link'
 
 export default function SignIn() {
-
-	   const {
+    const {
         email,
         setEmail,
         password,
@@ -21,7 +21,6 @@ export default function SignIn() {
         handlePasswordBlur,
         handleSubmit,
     } = useLogin()
-    
 
     return (
         <main className={styles.page}>
@@ -29,24 +28,12 @@ export default function SignIn() {
                 <h1 className={styles.title}>Sign In</h1>
 
                 <div className={styles.socialButtons}>
-                    <button
-                        type="button"
-                        className={styles.socialButton}
-                        aria-label="Sign in with Google"
-                    >
+                    <button type="button" className={styles.socialButton} aria-label="Sign in with Google">
                         <Icon name="google-svgrepo-com-1" size={36} />
                     </button>
 
-                    <button
-                        type="button"
-                        className={styles.socialButton}
-                        aria-label="Sign in with GitHub"
-                    >
-                        <Icon
-                            name="github-svgrepo-com--3--1"
-                            size={36}
-                            className={styles.whiteIcon}
-                        />
+                    <button type="button" className={styles.socialButton} aria-label="Sign in with GitHub">
+                        <Icon name="github-svgrepo-com--3--1" size={36} className={styles.whiteIcon} />
                     </button>
                 </div>
 
@@ -58,9 +45,7 @@ export default function SignIn() {
                             type="email"
                             placeholder="Epam@epam.com"
                             value={email}
-                            onChange={(event) =>
-                                setEmail(event.target.value)
-                            }
+                            onChange={(event) => setEmail(event.target.value)}
                             onBlur={handleEmailBlur}
                             error={errors.email}
                         />
@@ -72,9 +57,7 @@ export default function SignIn() {
                                 type={showPassword ? 'text' : 'password'}
                                 placeholder="**********"
                                 value={password}
-                                onChange={(event) =>
-                                    setPassword(event.target.value)
-                                }
+                                onChange={(event) => setPassword(event.target.value)}
                                 onBlur={handlePasswordBlur}
                                 error={errors.password}
                                 className={styles.passwordInput}
@@ -83,21 +66,11 @@ export default function SignIn() {
                             <button
                                 type="button"
                                 className={styles.passwordIcon}
-                                onClick={() =>
-                                    setShowPassword((prev) => !prev)
-                                }
-                                aria-label={
-                                    showPassword
-                                        ? 'Hide password'
-                                        : 'Show password'
-                                }
+                                onClick={() => setShowPassword((prev) => !prev)}
+                                aria-label={showPassword ? 'Hide password' : 'Show password'}
                             >
                                 <Icon
-                                    name={
-                                        showPassword
-                                            ? 'eye-outline'
-                                            : 'eye-off-outline'
-                                    }
+                                    name={showPassword ? 'eye-outline' : 'eye-off-outline'}
                                     size={24}
                                     className={styles.whiteIcon}
                                 />
@@ -105,28 +78,18 @@ export default function SignIn() {
                         </div>
                     </div>
 
-                    <button
-                        type="button"
-                        className={styles.forgotPassword}
-                    >
+                    <Link href="/forgot-password" className={styles.forgotPassword}>
                         Forgot Password
-                    </button>
+                    </Link>
 
-                    <Button
-                        title="Sign In"
-                        type="submit"
-                        className={styles.signInButton}
-                    />
+                    <Button title="Sign In" type="submit" className={styles.signInButton} />
 
                     <div className={styles.signUp}>
                         <span>Don’t have an account?</span>
 
-                        <button
-                            type="button"
-                            className={styles.signUpButton}
-                        >
+                        <Link href={'/sign-up'} className={styles.signUpButton}>
                             Sign Up
-                        </button>
+                        </Link>
                     </div>
                 </form>
             </section>
