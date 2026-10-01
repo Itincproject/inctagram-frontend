@@ -100,14 +100,14 @@ export default function SignUp() {
                                     placeholder="Epam11"
                                     error={errors.username?.message}
                                     {...register('username', {
-                                        required: true,
+                                        required: 'Username is required',
                                         minLength: { value: 6, message: 'Minimum number of characters 6' },
                                         maxLength: {
-                                            value: 29,
+                                            value: 30,
                                             message: 'Maximum number of characters 30',
                                         },
                                         pattern: {
-                                            value: /^[A-Za-z0-9_-еаорсхк АВЕКМНОРСТХ]+$/,
+                                            value: /^[A-Za-z0-9_-]+$/,
                                             message: 'Username must contain a-z, A-Z, 0-9, _ -',
                                         },
                                     })}
@@ -123,7 +123,7 @@ export default function SignUp() {
                                     {...register('email', {
                                         required: 'Email is required',
                                         pattern: {
-                                            value: /^[^\s@]+@[^\s@]+\.[^\s@]{1,}$/,
+                                            value: /^[^\s@.](?:[^\s@]*[^\s@.])?@[^\s@]+\.[^\s@]{2,}$/,
                                             message: 'The email must match the format',
                                         },
                                     })}
@@ -138,7 +138,7 @@ export default function SignUp() {
                                     error={errors.password?.message}
                                     {...register('password', {
                                         required: true,
-                                        minLength: { value: 7, message: 'Minimum number of characters 6' },
+                                        minLength: { value: 6, message: 'Minimum number of characters 6' },
                                         maxLength: {
                                             value: 20,
                                             message: 'Maximum number of characters 20',
@@ -190,12 +190,7 @@ export default function SignUp() {
                             type="submit"
                             className={styles.signUpButton}
                             disabled={
-                                (!isValid || !isAgreed) &&
-                                (!isAgreed ||
-                                    !(
-                                        getValues('password') === getValues('passwordConfirmation') &&
-                                        getValues('password') !== ''
-                                    ))
+                                (!isValid || !isAgreed)
                             }
                         />
 
