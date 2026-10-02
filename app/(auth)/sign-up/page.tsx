@@ -122,6 +122,10 @@ export default function SignUp() {
                                     error={errors.email?.message}
                                     {...register('email', {
                                         required: 'Email is required',
+                                        pattern: {
+                                            value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                                            message: 'The email must match the format',
+                                        },
                                     })}
                                 />
                             </div>
