@@ -40,10 +40,6 @@ export const CreateNewPasswordForm = ({ code, onExpired }: Props) => {
             await createPassword({ newPassword: password, recoveryCode: code }).unwrap()
             router.push('/sign-in')
         } catch (error) {
-            console.log('Ошибка:', error)
-            console.log('Тип ошибки:', typeof error)
-            console.log('Caught error:', error)
-            console.log('Is RTK Query error:', isFetchBaseQueryError(error))
             if (!isFetchBaseQueryError(error)) {
                 setAlertError('Something went wrong. Please, try again later')
                 return
