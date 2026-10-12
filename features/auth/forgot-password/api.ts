@@ -1,14 +1,21 @@
-export async function passwordReset({ email, token }: { email: string; token: string }): Promise<void> {
-    const res = await fetch('https://gateway.itincproject.site/api/v1/auth/password-recovery', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, token }),
-    })
+import { baseApi } from '@/shared/api/baseApi'
 
-    if (res.status === 204) return
-    if (res.status === 400) {
-        const data = await res.json().catch(() => null)
-        throw new Error(data?.message ?? 'User with this email does not exist')
-    }
-    throw new Error('Something went wrong. Please try again later')
+type PasswordResetArgs = {
+    email: string
+    captchaToken: string
 }
+
+export const resetPasswordApi = baseApi.injectEndpoints({
+    endpoints: (build) => ({
+        passwordReset: build.mutation<void, PasswordResetArgs>({
+            query: ({ email, captchaToken }) => ({
+                url: '/auth/password-recovery',
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: { email, captchaToken },
+            }),
+        }),
+    }),
+})
+
+export const { usePasswordResetMutation } = resetPasswordApi

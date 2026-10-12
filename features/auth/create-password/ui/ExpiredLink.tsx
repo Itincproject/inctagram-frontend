@@ -1,11 +1,13 @@
 'use client'
 import { Button } from '@/shared/ui/Button/Button'
 import { Notice } from '@/shared/ui/Notice'
-import { passwordReset } from '../../forgot-password/api'
-import { Turnstile, TurnstileInstance } from '@marsidev/react-turnstile'
-import { useRef, useState } from 'react'
+import { usePasswordResetMutation } from '../../forgot-password/api'
+import { useState } from 'react'
 import { Alert } from '@/shared/ui/Alert/Alert'
 import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
+import { isFetchBaseQueryError } from '@/shared/libs/isFetchBaseQueryError'
+import { getCommonErrorMessage } from '@/shared/libs/getCommonErrorMessage'
+import { TurnstileCaptcha } from '../../captcha-protection/TurnstileCaptcha'
 
 export const ExpiredLink = () => {
     const title = 'Email verification link expired'
@@ -13,30 +15,47 @@ export const ExpiredLink = () => {
 
     const [error, setError] = useState('')
     const [showModal, setShowModal] = useState(false)
+    const [shouldExecute, setShouldExecute] = useState(false)
+    const [isLoading, setIsloading] = useState(false)
 
-    const turnstileRef = useRef<TurnstileInstance | null>(null)
-
-    const startCheckCaptcha = () => {
-        turnstileRef.current?.execute()
+    const [passwordReset] = usePasswordResetMutation()
+    const hadleClick = () => {
+        setShouldExecute(true)
+        setIsloading(true)
     }
-
-    const handleResendonSuccess = async (token: string) => {
+    const handleResendOnSuccess = async (token: string) => {
+        setShouldExecute(false)
         const email = sessionStorage.getItem('resetEmail')
 
         if (!email) {
-            setError('Something went wrong. Please try again.')
+            setError('Unable to find your email. Please try again.')
             return
         }
 
         try {
             await passwordReset({
                 email,
-                token,
-            })
+                captchaToken: token,
+            }).unwrap()
             setShowModal(true)
             sessionStorage.removeItem('resetEmail')
-        } catch {
-            setError('Something went wrong. Please try again.')
+        } catch (error) {
+            if (!isFetchBaseQueryError(error)) {
+                setError('Something went wrong. Please try again.')
+                return
+            }
+            const commonMessage = getCommonErrorMessage(error)
+            if (commonMessage) {
+                setError(commonMessage)
+                return
+            }
+            if (error.status === 503) {
+                setError('Captcha service is currently unavailable. Please try again later.')
+            } else {
+                setError('Something went wrong. Please, try again later')
+            }
+        } finally {
+            setIsloading(false)
         }
     }
 
@@ -53,16 +72,8 @@ export const ExpiredLink = () => {
             )}
             {error && <Alert variant="error" message={error} />}
             <Notice title={title} description={description} imageSrc="/expiredLink.svg">
-                <Turnstile
-                    ref={turnstileRef}
-                    siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-                    options={{
-                        execution: 'execute',
-                        appearance: 'interaction-only',
-                    }}
-                    onSuccess={handleResendonSuccess}
-                />
-                <Button title="Resend Link" variant="primary" onClick={startCheckCaptcha} />
+                <TurnstileCaptcha shouldExecute={shouldExecute} onSuccess={handleResendOnSuccess} />
+                <Button title="Resend Link" variant="primary" onClick={hadleClick} disabled={isLoading} />
             </Notice>
         </>
     )

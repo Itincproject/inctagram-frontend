@@ -1,26 +1,33 @@
 'use client'
 
-import { ChangeEvent, SubmitEventHandler, useState } from 'react'
+import { ChangeEvent, SubmitEventHandler, useRef, useState } from 'react'
 import s from './ForgotPassword.module.css'
 import { Input } from '@/shared/ui/Inputs/Input'
 import { Button } from '@/shared/ui/Button/Button'
-import { passwordReset } from '../api'
+import { usePasswordResetMutation } from '../api'
 import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
 import { useRouter } from 'next/navigation'
-import { Captcha } from '../../captcha-protection/Captcha'
+import { Captcha, CaptchaRef } from '../../captcha-protection/Captcha'
+import { Alert } from '@/shared/ui/Alert/Alert'
+import { getCommonErrorMessage } from '@/shared/libs/getCommonErrorMessage'
+import { isFetchBaseQueryError } from '@/shared/libs/isFetchBaseQueryError'
+import { TurnstileCaptcha } from '../../captcha-protection/TurnstileCaptcha'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export const ForgotPasswordForm = () => {
     const [email, setEmail] = useState('')
-
     const [sendingEmail, setSendingEmail] = useState(false)
     const [showModal, setShowModal] = useState(false)
-    const [isLoading, setIsLoading] = useState(false)
     const [error, setError] = useState<string | undefined>(undefined)
+    const [alertError, setAlertError] = useState<string | undefined>(undefined)
     const [captchaToken, setCaptchaToken] = useState<string | null>(null)
-
     const [emailTouched, setEmailTouched] = useState(false)
+    const [shouldExecute, setShouldExecute] = useState(false)
+
+    const captchaRef = useRef<CaptchaRef | null>(null)
+
+    const [passwordReset, { isLoading }] = usePasswordResetMutation()
 
     const handleToken = (token: string) => {
         setCaptchaToken(token)
@@ -33,27 +40,48 @@ export const ForgotPasswordForm = () => {
 
     const isButtonDisabled = email.trim() === '' || isLoading || !captchaToken
 
-    const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
-        e.preventDefault()
+    const sendResetEmail = async (token: string) => {
         if (!isEmailValid) {
             setError('Invalid email format. Please check your email and try again')
             return
         }
-
-        setIsLoading(true)
-
         try {
-            if (!captchaToken) return
-            await passwordReset({ email: email.trim(), token: captchaToken })
+            await passwordReset({ email: email.trim(), captchaToken: token }).unwrap()
             setSendingEmail(true)
             setShowModal(true)
         } catch (error) {
-            const message = error instanceof Error ? error.message : 'Что-то пошло не так'
-            setError(message)
+            if (!isFetchBaseQueryError(error)) {
+                setAlertError('Something went wrong. Please, try again later')
+                return
+            }
+
+            const commonMessage = getCommonErrorMessage(error)
+            if (commonMessage) {
+                setAlertError(commonMessage)
+                return
+            }
+            if (error.status === 400) {
+                setError('The email address is invalid. Please check the format and try again.')
+            } else if (error.status === 503) {
+                setAlertError('Captcha service is currently unavailable. Please try again later.')
+            } else {
+                setAlertError('Something went wrong. Please, try again later')
+            }
         } finally {
-            setIsLoading(false)
             setCaptchaToken(null)
+            captchaRef.current?.resetCaptcha()
         }
+    }
+
+    const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
+        e.preventDefault()
+        setAlertError(undefined)
+        if (!captchaToken) return
+        sendResetEmail(captchaToken)
+    }
+    const handleCaptchaSuccess = async (token: string) => {
+        setShouldExecute(false)
+        await sendResetEmail(token)
     }
 
     return (
@@ -95,7 +123,7 @@ export const ForgotPasswordForm = () => {
                             onClick={() => router.push('/sign-in')}
                         />
 
-                        <Captcha onSuccess={handleToken} className={s.recaptcha} />
+                        <Captcha onSuccess={handleToken} className={s.recaptcha} ref={captchaRef} />
                     </>
                 )}
                 {sendingEmail && (
@@ -106,11 +134,12 @@ export const ForgotPasswordForm = () => {
                         <Button
                             title="Send Link Again"
                             variant="primary"
-                            type="submit"
-                            disabled={isButtonDisabled}
+                            type="button"
+                            disabled={isLoading || !isEmailValid}
                             className={s.btn}
+                            onClick={() => setShouldExecute(true)}
                         />
-
+                        <TurnstileCaptcha shouldExecute={shouldExecute} onSuccess={handleCaptchaSuccess} />
                         <Button title="Back to Sign In" variant="text" onClick={() => router.push('/sign-in')} />
                     </>
                 )}
@@ -125,6 +154,7 @@ export const ForgotPasswordForm = () => {
                     />
                 )}
             </form>
+            {alertError && <Alert variant="error" message={alertError} />}
         </>
     )
 }
