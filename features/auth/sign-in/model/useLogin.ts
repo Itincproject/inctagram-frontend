@@ -1,21 +1,21 @@
+'use client'
+
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import type { LoginErrors } from './types'
+import { useLoginMutation } from '@/features/auth/sign-in/api/loginApi'
+import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-type Errors = {
-    email?: string
-    password?: string
-}
-
-const API_URL = 'https://gateway.itincproject.site/api/v1/auth/login'
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export const useLogin = () => {
     const router = useRouter()
+    const [login, { isLoading }] = useLoginMutation() 
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [showPassword, setShowPassword] = useState(false)
-    const [errors, setErrors] = useState<Errors>({})
+    const [errors, setErrors] = useState<LoginErrors>({})
 
     const validateEmail = (value: string): string | undefined => {
         if (!value.trim()) return 'Email is required'
@@ -41,38 +41,36 @@ export const useLogin = () => {
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
 
-        const emailError = email.trim() ? undefined : 'Email is required'
-        const passwordError = password.trim() ? undefined : 'Password is required'
+        const emailError = validateEmail(email)
+        const passwordError = validatePassword(password)
 
         setErrors({ email: emailError, password: passwordError })
         if (emailError || passwordError) return
 
         try {
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({
-                    usernameOrEmail: email,
-                    password: password,
-                }),
-            })
+            const data = await login({
+                usernameOrEmail: email,
+                password,
+            }).unwrap()  
+            localStorage.setItem('accessToken', data.accessToken)
+            router.push('/profile')
+        } catch (err) {
 
-            if (response.status === 401) {
+            const error = err as FetchBaseQueryError
+
+            if (error.status === 401) {
                 setErrors((prev) => ({
                     ...prev,
                     password: 'The email or password are incorrect. Try again please',
                 }))
-                return
+            } else {
+                setErrors((prev) => ({
+                    ...prev,
+                    password: 'Something went wrong. Please try again.',
+                }))
+                console.error('Login error:', err)
             }
-
-            const data = await response.json()
-            localStorage.setItem('accessToken', data.accessToken)
-            localStorage.setItem('userEmail', email)
-            router.push('/profile')
-        } catch (err) {
-            console.error('Login error:', err)
-        } 
+        }
     }
 
     return {
@@ -83,6 +81,7 @@ export const useLogin = () => {
         showPassword,
         setShowPassword,
         errors,
+        isLoading,    
         handleEmailBlur,
         handlePasswordBlur,
         handleSubmit,
