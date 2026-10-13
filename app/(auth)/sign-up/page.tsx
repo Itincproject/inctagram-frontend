@@ -9,8 +9,9 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { AlertModal } from '@/shared/ui/AlertModal/AlertModal'
 import { PasswordInput } from '@/features/auth/sign-up/ui/PasswordInput/PasswordInput'
+import { useSignUpMutation } from '@/features/auth/sign-in/api/loginApi'
 
-type FormValues = {
+export type SignUpRequest = {
     username: string
     email: string
     password: string
@@ -21,6 +22,8 @@ export default function SignUp() {
     const [isAgreed, setIsAgreed] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
+    const [signUp, { isLoading }] = useSignUpMutation()
+
     const {
         register,
         getValues,
@@ -28,7 +31,7 @@ export default function SignUp() {
         setError,
         reset,
         formState: { errors, isValid },
-    } = useForm<FormValues>({
+    } = useForm<SignUpRequest>({
         mode: 'onBlur',
     })
     console.log({
@@ -36,29 +39,24 @@ export default function SignUp() {
         errors,
     })
 
-    const onSubmit = async (data: FormValues) => {
+    const onSubmit = async (data: SignUpRequest) => {
         try {
-            const res = await fetch('https://gateway.itincproject.site/api/v1/auth/registration', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(data),
-            })
-            if (res.status === 400) {
+            await signUp(data).unwrap()
+            setShowModal(true)
+        } catch (error) {
+            if (
+                typeof error === 'object' &&
+                error !== null &&
+                'status' in error &&
+                error.status === 409
+            ) {
                 setError('username', {
                     message: 'User with this username is already registered',
                 })
                 return
             }
 
-            if (res.status === 204) {
-                setShowModal(true)
-            }
-
-            return
-        } catch {
-            console.log('Network error')
+            console.log('Network error', error)
         }
     }
 
