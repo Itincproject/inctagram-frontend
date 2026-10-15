@@ -12,6 +12,7 @@ export const loginApi = baseApi.injectEndpoints({
                 credentials: 'include',
             }),
         }),
+
         signUp: builder.mutation<void, SignUpRequest>({
             query: (data) => ({
                 url: '/auth/registration',
@@ -19,9 +20,18 @@ export const loginApi = baseApi.injectEndpoints({
                 body: data,
             }),
         }),
-        confirmRegistration: builder.mutation<void, string>({
+
+        confirmRegistration: builder.mutation<void, { code: string }>({
             query: (data) => ({
                 url: '/auth/registration-confirmation',
+                method: 'POST',
+                body: data,
+            }),
+        }),
+
+        resendRegistrationEmail: builder.mutation<void, { email: string }>({
+            query: (data) => ({
+                url: '/auth/registration-email-resending',
                 method: 'POST',
                 body: data,
             }),
@@ -29,4 +39,4 @@ export const loginApi = baseApi.injectEndpoints({
     }),
 })
 
-export const { useLoginMutation, useSignUpMutation, useConfirmRegistrationMutation } = loginApi
+export const { useLoginMutation, useSignUpMutation, useConfirmRegistrationMutation,useResendRegistrationEmailMutation } = loginApi

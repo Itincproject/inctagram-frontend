@@ -22,7 +22,7 @@ export default function SignUp() {
     const [isAgreed, setIsAgreed] = useState(false)
     const [showModal, setShowModal] = useState(false)
 
-    const [signUp, { isLoading }] = useSignUpMutation()
+    const [signUp] = useSignUpMutation()
 
     const {
         register,
