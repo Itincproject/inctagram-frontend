@@ -133,12 +133,12 @@ export const CreatePostModal = ({ onClose, onNext }: CreatePostModalProps) => {
             return !ALLOWED_EXTENSIONS.includes(extension) || (file.type !== '' && !ALLOWED_TYPES.includes(file.type))
         })
         if (invalidType) {
-            setError('The photo must be in JPEG or PNG format.')
+            setError('The photo must be less than 20 Mb and have JPEG or PNG format')
             return
         }
 
         if (selectedFiles.some((file) => file.size > MAX_FILE_SIZE)) {
-            setError('The photo must be no larger than 20 MB.')
+            setError('The photo must be less than 20 Mb and have JPEG or PNG format')
             return
         }
 

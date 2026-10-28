@@ -29,6 +29,8 @@ export const CloseConfirmationModal = ({ onCancel, onSaveDraft }: CloseConfirmat
             <div className={styles.confirmationContent}>
                 <p id="close-confirmation-description" className={styles.confirmationMessage}>
                     Do you really want to close the creation of a publication?
+                    <br />
+                    If you close everything will be deleted
                 </p>
 
                 <div className={styles.confirmationActions}>
