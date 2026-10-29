@@ -1,0 +1,27 @@
+.page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+.main_container {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 60px);
+    flex: 1;
+    min-width: 0;
+}
+.authorized .static_part {
+    flex: 1;
+    min-width: 0;
+    padding-left: 24px;
+    padding-right: 60px;
+}
+
+.unauthorized .static_part {
+    flex: 1;
+    max-width: 100%;
+    padding: 24px 150px 0;
+    padding-top: 24px;
+    display: flex;
+    justify-content: center;
+}
