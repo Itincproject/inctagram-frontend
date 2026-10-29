@@ -1,8 +1,9 @@
-"use client";
+'use client'
 
-import {useState} from "react";
-import {Select, SelectOption} from "@/shared/ui/Select/Select";
-import styles from "./Header.module.css"
+import { useState } from 'react'
+import { Select, SelectOption } from '@/shared/ui/Select/Select'
+import styles from './Header.module.css'
+import { useRouter } from 'next/navigation'
 
 const languageOptions: SelectOption[] = [
     {
@@ -15,26 +16,22 @@ const languageOptions: SelectOption[] = [
         label: 'Русский',
         flag: 'Flag-Russia',
     },
-];
+]
+type Prop = {
+    isAuth: boolean
+}
+export const Header = ({ isAuth }: Prop) => {
+    const [language, setLanguage] = useState('en')
 
-export const Header = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState('en');
+    const router = useRouter()
 
     return (
         <header className={styles.header}>
-            <div className={styles.logo}>
-                Inctagram
-            </div>
+            <div className={styles.logo}>Inctagram</div>
 
             <div className={styles.rightControls}>
-                {isAuthenticated && (
-                    <button
-                        type="button"
-                        className={styles.notificationButton}
-                        aria-label="Уведомления"
-                    >
-                    </button>
+                {isAuth && (
+                    <button type="button" className={styles.notificationButton} aria-label="Уведомления"></button>
                 )}
 
                 <Select
@@ -45,24 +42,18 @@ export const Header = () => {
                     className={styles.languageSelect}
                 />
 
-                {!isAuthenticated && (
+                {!isAuth && (
                     <>
-                        <button
-                            type="button"
-                            className={styles.buttonOutline}
-                        >
+                        <button type="button" className={styles.buttonOutline} onClick={() => router.push('/sign-in')}>
                             Log in
                         </button>
 
-                        <button
-                            type="button"
-                            className={styles.buttonPrimary}
-                        >
+                        <button type="button" className={styles.buttonPrimary} onClick={() => router.push('/sign-up')}>
                             Sign up
                         </button>
                     </>
                 )}
             </div>
         </header>
-    );
-};
+    )
+}
