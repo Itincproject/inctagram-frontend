@@ -1,0 +1,12 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.posts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+    width: 100%;
+    padding-top: 36px;
+}
