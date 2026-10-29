@@ -1,11 +1,10 @@
+import { HomeClientLayout } from '@/pages/home-client-layout'
+import { StaticHomeContent } from '@/pages/static-home-content/ui'
 
-
-const HomePage = () => {
+export default function HomePage() {
     return (
-        <div>
-            HOME PAGE
-        </div>
+        <HomeClientLayout>
+            <StaticHomeContent />
+        </HomeClientLayout>
     )
 }
-
-export default HomePage
