@@ -8,7 +8,7 @@ import { ImageType } from '@/pages/static-home-content/model/types'
 
 type Prop = {
     postPhoto: ImageType[]
-    isCollapsed: boolean
+    isCollapsed?: boolean
 }
 
 export const PostCard = ({ postPhoto, isCollapsed }: Prop) => {
