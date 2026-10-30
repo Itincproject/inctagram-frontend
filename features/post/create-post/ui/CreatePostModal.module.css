@@ -1,0 +1,1285 @@
+/* Modal overlay */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 96px 16px 16px;
+    background-color: rgb(0 0 0 / 60%);
+}
+
+.modal,
+.modal * {
+    box-sizing: border-box;
+}
+
+.modal {
+    display: flex;
+    flex-direction: column;
+    width: 492px;
+    height: 564px;
+    max-width: calc(100vw - 32px);
+    max-height: calc(100vh - 112px);
+    overflow: hidden;
+    color: #ffffff;
+    background-color: #333333;
+    border: 1px solid #4c4c4c;
+    border-radius: 2px;
+}
+
+/* Upload screen */
+
+.uploadHeader {
+    display: flex;
+    flex: 0 0 60px;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    padding: 12px 24px;
+    border-bottom: 1px solid #4c4c4c;
+}
+
+.uploadTitle {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 36px;
+}
+
+.closeButton {
+    display: flex;
+    flex: 0 0 24px;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    color: #ffffff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.closeButton:hover {
+    opacity: 0.8;
+}
+
+.closeButton svg,
+.imagePlaceholder svg,
+.removePhotoButton svg,
+.backButton svg,
+.cropToolButton svg {
+    display: block;
+    color: currentColor;
+    filter: brightness(0) invert(1);
+}
+
+.closeButton:focus-visible,
+.backButton:focus-visible,
+.nextButton:focus-visible,
+.cropToolButton:focus-visible,
+.removePhotoButton:focus-visible {
+    outline: 2px solid #397df6;
+    outline-offset: 2px;
+}
+
+.uploadContent {
+    display: flex;
+    flex: 1 1 auto;
+    min-height: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 71px 0 47px;
+}
+
+.imagePlaceholder {
+    display: flex;
+    flex: 0 0 228px;
+    align-items: center;
+    justify-content: center;
+    width: 222px;
+    height: 228px;
+    color: #ffffff;
+    background-color: #171717;
+    border-radius: 2px;
+}
+
+.uploadActions {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    gap: 24px;
+    width: 219px;
+    margin-top: 60px;
+}
+
+.uploadActions button {
+    box-sizing: border-box;
+    width: 219px;
+    height: 36px;
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    white-space: nowrap;
+}
+
+.fileInput {
+    display: none;
+}
+
+/* Existing photos on the upload screen */
+
+.uploadContentWithPhotos {
+    align-items: stretch;
+    gap: 24px;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+.uploadContentWithPhotos .uploadActions {
+    align-self: center;
+    margin-top: 0;
+}
+
+.previewGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-content: start;
+    gap: 8px;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.previewItem {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1;
+    background-color: #171717;
+    border-radius: 2px;
+}
+
+.previewItem img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.removePhotoButton {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: rgb(0 0 0 / 70%);
+    border: none;
+    border-radius: 50%;
+}
+
+/* Cropping screen */
+
+.cropModal {
+    position: relative;
+}
+
+.cropHeader {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex: 0 0 60px;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    padding: 12px 24px;
+    background-color: #333333;
+}
+
+.backButton {
+    display: flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.cropTitle {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    transform: translateX(-50%);
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 36px;
+    white-space: nowrap;
+}
+
+.nextButton {
+    display: flex;
+    flex: 0 0 61px;
+    align-items: center;
+    justify-content: center;
+    width: 61px;
+    height: 36px;
+    padding: 6px 12px;
+    color: #397df6;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    border-radius: 2px;
+}
+
+.nextButton:hover:not(:disabled) {
+    color: #73a5ff;
+}
+
+.nextButton:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+/* Fixed viewport for the photo */
+
+.cropStage {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    overscroll-behavior: contain;
+    background-color: #4c4c4c;
+}
+
+.cropViewport {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #4c4c4c;
+    transform: translate(-50%, -50%);
+}
+
+/* react-easy-crop viewport */
+
+.cropStage :global(.reactEasyCrop_Container) {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    background-color: #4c4c4c;
+}
+
+.cropStage :global(.reactEasyCrop_Image) {
+    max-width: none;
+    user-select: none;
+}
+
+.cropStage :global(.reactEasyCrop_CropArea) {
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.cropStage :global(.reactEasyCrop_CropAreaGrid) {
+    display: none;
+}
+
+/* Bottom-left image controls */
+
+.cropToolsLeft {
+    position: absolute;
+    z-index: 10;
+    bottom: 12px;
+    left: 12px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.cropToolButton {
+    display: flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: rgb(23 23 23 / 80%);
+    border: none;
+    border-radius: 2px;
+}
+
+.cropToolButton:hover {
+    background-color: rgb(51 51 51 / 90%);
+}
+
+.aspectRatioButtonActive {
+    color: #397df6;
+}
+
+.aspectRatioButtonActive svg {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(92%) saturate(1752%) hue-rotate(207deg) brightness(99%)
+        contrast(96%);
+}
+
+.aspectRatioPicker {
+    position: absolute;
+    bottom: 60px;
+    left: 12px;
+    z-index: 12;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    box-sizing: border-box;
+    width: 156px;
+    height: 152px;
+    padding: 8px 12px;
+    background-color: rgb(51 51 51 / 95%);
+    border-radius: 2px;
+}
+
+.aspectRatioOption {
+    display: flex;
+    flex: 1 1 0;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    color: #8d9094;
+    font-size: 14px;
+    line-height: 24px;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.aspectRatioOption:hover,
+.aspectRatioOptionActive {
+    color: #fff;
+}
+
+.aspectRatioOption:focus-visible {
+    outline: 2px solid #397df6;
+    outline-offset: 2px;
+}
+
+.aspectRatioOption svg {
+    color: #8d9094;
+    filter: brightness(0) saturate(100%) invert(60%) sepia(5%) saturate(115%) hue-rotate(180deg) brightness(90%)
+        contrast(88%);
+    transform: translateX(3px);
+}
+
+.aspectRatioOptionActive svg {
+    color: #fff;
+    filter: brightness(0) invert(1);
+}
+
+.aspectRatioIndicator {
+    display: block;
+    flex: 0 0 auto;
+    border: 2px solid #8d9094;
+    border-radius: 2px;
+}
+
+.aspectRatioIndicatorSquare {
+    width: 18px;
+    height: 18px;
+}
+
+.aspectRatioIndicatorPortrait {
+    width: 18px;
+    height: 26px;
+}
+
+.aspectRatioIndicatorLandscape {
+    width: 26px;
+    height: 20px;
+}
+
+.aspectRatioOptionActive .aspectRatioIndicator {
+    border-color: #fff;
+}
+
+/* Active zoom button */
+
+.zoomToggleButtonActive {
+    color: #397df6;
+}
+
+.zoomToggleButtonActive svg {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(92%) saturate(1752%) hue-rotate(207deg) brightness(99%)
+        contrast(96%);
+}
+
+.zoomToggleButton:not(.zoomToggleButtonActive) svg {
+    filter: brightness(0) invert(1);
+}
+
+/* Bottom-right add-photo control */
+
+.addPhotoTool {
+    position: absolute;
+    z-index: 10;
+    right: 12px;
+    bottom: 12px;
+}
+
+.addPhotoToolActive {
+    color: #397df6;
+}
+
+.addPhotoToolActive svg {
+    filter: brightness(0) saturate(100%) invert(42%) sepia(92%) saturate(1752%) hue-rotate(207deg) brightness(99%)
+        contrast(96%);
+}
+
+/* Photo picker panel */
+
+.photoPicker {
+    position: absolute;
+    z-index: 12;
+    right: 12px;
+    bottom: 60px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 244px;
+    max-width: calc(100% - 24px);
+    height: 106px;
+    padding: 12px;
+    background-color: rgb(51 51 51 / 95%);
+    border-radius: 2px;
+}
+
+.photoPickerSingle {
+    width: 152px;
+}
+
+.photoPickerPhotos {
+    display: flex;
+    gap: 12px;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.photoPickerPhotos::-webkit-scrollbar {
+    display: none;
+}
+
+.photoPickerPreview {
+    position: relative;
+    flex: 0 0 80px;
+    width: 80px;
+    height: 82px;
+    overflow: hidden;
+    background-color: #171717;
+}
+
+.photoPickerPreviewActive {
+    outline: 2px solid #397df6;
+    outline-offset: -2px;
+}
+
+.photoPickerSelect {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.photoPickerPreview img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.photoPickerRemove {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 12px;
+    height: 12px;
+    padding: 0;
+    color: #fff;
+    cursor: pointer;
+    background-color: #333;
+    border: 0;
+    border-radius: 2px;
+}
+
+.photoNavigationButton {
+    position: absolute;
+    top: 50%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 6px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: rgb(23 23 23 / 80%);
+    border: none;
+    border-radius: 2px;
+    transform: translateY(-50%);
+}
+
+.photoNavigationButton:hover {
+    background-color: rgb(51 51 51 / 90%);
+}
+
+.photoNavigationButton svg {
+    display: block;
+    color: currentColor;
+    filter: brightness(0) invert(1);
+}
+
+.photoNavigationButton:focus-visible,
+.photoIndicator:focus-visible,
+.photoPickerSelect:focus-visible {
+    outline: 2px solid #397df6;
+    outline-offset: 2px;
+}
+
+.photoNavigationLeft {
+    left: 12px;
+}
+
+.photoNavigationRight {
+    right: 12px;
+}
+
+.photoIndicators {
+    position: absolute;
+    bottom: 14px;
+    left: 50%;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    transform: translateX(-50%);
+}
+
+.photoIndicator {
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    cursor: pointer;
+    background-color: #8d9094;
+    border: 0;
+    border-radius: 50%;
+}
+
+.photoIndicatorActive {
+    background-color: #397df6;
+}
+
+.photoPickerRemove svg {
+    color: #ffffff;
+    filter: brightness(0) invert(1);
+}
+
+/* Add-photo plus button */
+
+.photoPickerAdd {
+    display: flex;
+    flex: 0 0 36px;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    color: #ffffff;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 2px;
+}
+
+.photoPickerAdd svg {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: #ffffff;
+    filter: brightness(0) invert(1);
+}
+
+.photoPickerAdd:hover {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.photoPickerAdd:focus-visible {
+    outline: 2px solid #397df6;
+    outline-offset: 2px;
+}
+
+/* Zoom panel */
+
+.zoomControl {
+    position: absolute;
+    z-index: 11;
+    bottom: 60px;
+    left: 64px;
+    display: flex;
+    align-items: center;
+    width: 124px;
+    height: 36px;
+    padding: 0 12px;
+    background-color: rgb(76 76 76 / 95%);
+    border: 1px solid #4c4c4c;
+    border-radius: 2px;
+}
+
+.zoomControl input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    height: 12px;
+    margin: 0;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+/* Slider track: blue progress and white remaining track */
+
+.zoomControl input::-webkit-slider-runnable-track {
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        #397df6 0%,
+        #397df6 var(--zoom-progress, 0%),
+        #ffffff var(--zoom-progress, 0%),
+        #ffffff 100%
+    );
+    border-radius: 2px;
+}
+
+.zoomControl input::-moz-range-track {
+    height: 4px;
+    background-color: #ffffff;
+    border-radius: 2px;
+}
+
+.zoomControl input::-moz-range-progress {
+    height: 4px;
+    background-color: #397df6;
+    border-radius: 2px;
+}
+
+/* Slider thumb */
+
+.zoomControl input::-webkit-slider-thumb {
+    width: 16px;
+    height: 16px;
+    margin-top: -6px;
+    appearance: none;
+    background-color: #ffffff;
+    border: 4px solid #397df6;
+    border-radius: 50%;
+}
+
+.zoomControl input::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    border: 4px solid #397df6;
+    border-radius: 50%;
+}
+
+/* Errors */
+
+.error {
+    width: 100%;
+    margin: 0;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+    background-color: #660a1d;
+    border: 1px solid #cc1439;
+    border-radius: 2px;
+}
+
+.cropError {
+    position: absolute;
+    z-index: 12;
+    top: 8px;
+    right: 8px;
+    left: 8px;
+    margin: 0;
+    padding: 8px 12px;
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: #660a1d;
+    border: 1px solid #cc1439;
+    border-radius: 2px;
+}
+
+/* Responsive layout */
+
+@media (max-height: 680px) {
+    .overlay {
+        align-items: center;
+        padding: 16px;
+    }
+
+    .modal {
+        height: min(564px, calc(100vh - 32px));
+        max-height: calc(100vh - 32px);
+    }
+}
+
+@media (max-width: 540px) {
+    .modal {
+        width: calc(100vw - 32px);
+        height: min(564px, calc(100vh - 32px));
+    }
+
+    .uploadHeader {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .uploadContent {
+        padding-top: 40px;
+        padding-bottom: 24px;
+    }
+
+    .imagePlaceholder {
+        width: min(222px, calc(100vw - 80px));
+    }
+
+    .uploadActions {
+        width: min(219px, calc(100% - 32px));
+        margin-top: 40px;
+    }
+
+    .uploadActions button {
+        width: 100%;
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .uploadContentWithPhotos {
+        padding: 16px;
+    }
+
+    .uploadContentWithPhotos .uploadActions {
+        margin-top: 0;
+    }
+
+    .previewGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cropHeader {
+        padding-right: 12px;
+        padding-left: 12px;
+    }
+
+    .cropTitle {
+        font-size: 18px;
+    }
+
+    .cropToolsLeft {
+        bottom: 12px;
+        left: 12px;
+        gap: 16px;
+    }
+
+    .cropToolButton {
+        flex-basis: 36px;
+        width: 36px;
+        height: 36px;
+        padding: 6px;
+    }
+
+    .addPhotoTool {
+        right: 12px;
+        bottom: 12px;
+    }
+
+    .photoPicker {
+        right: 12px;
+        bottom: 48px;
+        height: 106px;
+        padding: 12px;
+    }
+
+    .photoPickerPreview {
+        width: 80px;
+        height: 82px;
+    }
+
+    .zoomControl {
+        bottom: 48px;
+        left: 64px;
+        width: 124px;
+        height: 36px;
+        padding: 0 12px;
+    }
+}
+
+/* Publication screen */
+
+.publicationModal {
+    width: 972px;
+    height: 564px;
+    background-color: #333333;
+}
+
+.publicationHeader {
+    position: relative;
+    display: flex;
+    flex: 0 0 52px;
+    align-items: center;
+    justify-content: space-between;
+    height: 52px;
+    padding: 8px 16px;
+    background-color: #333333;
+    border-bottom: 1px solid #4c4c4c;
+}
+
+.publicationBackButton,
+.publishButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding: 6px 8px;
+    color: #ffffff;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 2px;
+}
+
+.publicationBackButton {
+    width: 36px;
+}
+
+.publicationBackButton svg,
+.publicationNavigationButton svg,
+.publicationLocationInput svg {
+    filter: brightness(0) invert(1);
+}
+
+.publicationBackButton:hover,
+.publishButton:hover {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.publishButton:disabled {
+    cursor: wait;
+    opacity: 0.6;
+}
+
+.publicationTitle {
+    position: absolute;
+    left: 50%;
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 36px;
+    transform: translateX(-50%);
+}
+
+.publishButton {
+    color: #397df6;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+}
+
+.publicationContent {
+    display: grid;
+    flex: 1 1 auto;
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.publicationMedia {
+    position: relative;
+    min-width: 0;
+    overflow: hidden;
+    background-color: #171717;
+}
+
+.publicationMedia > img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    object-position: center;
+}
+
+.publicationNavigationButton {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    padding: 12px;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: rgb(23 23 23 / 50%);
+    border: 0;
+    border-radius: 2px;
+    transform: translateY(-50%);
+}
+
+.publicationNavigationButton:hover {
+    background-color: rgb(51 51 51 / 80%);
+}
+
+.publicationNavigationLeft {
+    left: 12px;
+}
+
+.publicationNavigationRight {
+    right: 12px;
+}
+
+.publicationIndicators {
+    position: absolute;
+    bottom: 12px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 104px;
+    height: 24px;
+    padding: 8px 12px;
+    background-color: rgb(51 51 51 / 50%);
+    border-radius: 2px;
+    transform: translateX(-50%);
+}
+
+.publicationIndicator {
+    flex: 0 0 8px;
+    width: 8px;
+    height: 8px;
+    padding: 0;
+    cursor: pointer;
+    background-color: #ffffff;
+    border: 0;
+    border-radius: 50%;
+}
+
+.publicationIndicatorActive {
+    background-color: #397df6;
+}
+
+.publicationForm {
+    min-width: 0;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #333333;
+    border-left: 1px solid #4c4c4c;
+}
+
+.publicationProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 40px;
+    margin-bottom: 28px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.publicationAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    flex: 0 0 36px;
+    background-color: #000000;
+    border-radius: 50%;
+}
+
+.publicationFieldLabel {
+    display: block;
+    margin-bottom: 4px;
+    color: #8d9094;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.publicationTextareaWrap {
+    position: relative;
+    margin-bottom: 28px;
+}
+
+.publicationTextarea {
+    display: block;
+    width: 100%;
+    height: 144px;
+    padding: 8px 12px 24px;
+    color: #ffffff;
+    resize: none;
+    background-color: #171717;
+    border: 1px solid #4c4c4c;
+    border-radius: 2px;
+}
+
+.publicationTextarea::placeholder {
+    color: #8d9094;
+}
+
+.publicationCharacterCount {
+    position: absolute;
+    right: 8px;
+    bottom: 6px;
+    color: #8d9094;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.publicationLocationInput {
+    display: flex;
+    align-items: center;
+    height: 60px;
+    padding: 8px 12px;
+    background-color: #333333;
+    border: 1px solid #4c4c4c;
+    border-radius: 2px;
+}
+
+.publicationLocationInput input {
+    min-width: 0;
+    flex: 1 1 auto;
+    height: 24px;
+    padding: 0;
+    color: #ffffff;
+    font: inherit;
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+
+.publicationLocationInput input::placeholder {
+    color: #8d9094;
+}
+
+.publicationLocationSuggestions {
+    display: flex;
+    max-height: 140px;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.publicationLocationSuggestions button {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+    min-height: 52px;
+    padding: 8px 0;
+    color: #ffffff;
+    text-align: left;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.publicationLocationSuggestions button:hover {
+    background-color: rgb(255 255 255 / 8%);
+}
+
+.publicationLocationSuggestions span {
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.publicationLocationSuggestions small {
+    color: #8d9094;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+/* Close confirmation dialog */
+
+.confirmationOverlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+    background-color: rgb(0 0 0 / 60%);
+}
+
+.confirmationModal {
+    display: flex;
+    flex-direction: column;
+    width: min(378px, calc(100vw - 32px));
+    color: #ffffff;
+    background-color: #333333;
+    border: 1px solid #4c4c4c;
+    border-radius: 2px;
+    box-shadow: 0 4px 24px rgb(0 0 0 / 35%);
+}
+
+.confirmationHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 60px;
+    padding: 12px 24px;
+    border-bottom: 1px solid #4c4c4c;
+}
+
+.confirmationTitle {
+    margin: 0;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 36px;
+}
+
+.confirmationCloseButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    padding: 0;
+    color: #ffffff;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+}
+
+.confirmationCloseButton svg {
+    display: block;
+    color: currentColor;
+    filter: brightness(0) invert(1);
+}
+
+.confirmationCloseButton:hover {
+    opacity: 0.8;
+}
+
+.confirmationCloseButton:focus-visible,
+.discardButton:focus-visible,
+.saveDraftButton:focus-visible {
+    outline: 2px solid #397df6;
+    outline-offset: 2px;
+}
+
+.confirmationContent {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 24px;
+}
+
+.confirmationMessage {
+    margin: 0;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+.confirmationActions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.discardButton,
+.saveDraftButton {
+    height: 36px;
+    padding: 6px 24px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 24px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.discardButton {
+    color: #397df6;
+    background: transparent;
+    border: 1px solid #397df6;
+}
+
+.discardButton:hover {
+    background-color: rgb(57 125 246 / 10%);
+}
+
+.saveDraftButton {
+    color: #ffffff;
+    background-color: #397df6;
+    border: 1px solid #397df6;
+}
+
+.saveDraftButton:hover {
+    background-color: #2f6bd3;
+    border-color: #2f6bd3;
+}
+
+@media (max-width: 420px) {
+    .confirmationHeader {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    .confirmationContent {
+        padding: 20px 16px;
+    }
+
+    .confirmationActions {
+        gap: 8px;
+    }
+
+    .discardButton,
+    .saveDraftButton {
+        flex: 1 1 0;
+    }
+}
