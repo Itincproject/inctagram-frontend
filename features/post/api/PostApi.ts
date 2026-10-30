@@ -1,5 +1,5 @@
 import { baseApi } from '@/shared/api/baseApi'
-import type { CreatePostRequest, CreatePostResponse, UploadPostImageResponse } from '@/features/post/api/postApi.types'
+import type { CreatePostRequest, CreatePostResponse, UploadPostImageResponse } from './postApi.types'
 
 export const postApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
