@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    gap: 12px;
+}
+
+.userName {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--light-100);
+    align-self: center;
+}
