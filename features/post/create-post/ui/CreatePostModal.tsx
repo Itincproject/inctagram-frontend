@@ -1,9 +1,10 @@
 'use client'
 
+import { useCreatePostMutation, useUploadPostImageMutation } from '@/features/post/api/PostApi'
 import { useEffect, useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { useRouter } from 'next/navigation'
-import { useCreatePostMutation, useUploadPostImageMutation } from '../api/createPostApi'
+
 
 import {
     ALLOWED_EXTENSIONS,

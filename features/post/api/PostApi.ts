@@ -1,38 +1,9 @@
 import { baseApi } from '@/shared/api/baseApi'
+import type { CreatePostRequest, CreatePostResponse, UploadPostImageResponse } from '@/features/post/api/postApi.types'
 
-export type UploadPostImageResponse = {
-    uploadId: string
-    contentType: string
-    size: number
-    width: number
-    height: number
-    expiresAt: string
-}
-
-export type CreatePostRequest = {
-    description: string
-    imageIds: string[]
-}
-
-export type CreatePostResponse = {
-    id: number
-    description: string
-    createdAt: string
-    updatedAt: string
-    author: {
-        id: string
-        username: string
-    }
-    images: {
-        id: string
-        url: string
-        width: number
-        height: number
-    }[]
-}
-
-export const createPostApi = baseApi.injectEndpoints({
+export const postApi = baseApi.injectEndpoints({
     endpoints: (builder) => ({
+        // Upload post image
         uploadPostImage: builder.mutation<UploadPostImageResponse, File>({
             query: (file) => {
                 const formData = new FormData()
@@ -46,6 +17,7 @@ export const createPostApi = baseApi.injectEndpoints({
             },
         }),
 
+        // Create post
         createPost: builder.mutation<CreatePostResponse, CreatePostRequest>({
             query: (body) => ({
                 url: '/posts',
@@ -56,4 +28,7 @@ export const createPostApi = baseApi.injectEndpoints({
     }),
 })
 
-export const { useUploadPostImageMutation, useCreatePostMutation } = createPostApi
+export const {
+    useUploadPostImageMutation,
+    useCreatePostMutation,
+} = postApi
