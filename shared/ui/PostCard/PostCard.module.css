@@ -1,0 +1,57 @@
+.container {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 234/240;
+    margin-bottom: 12px;
+}
+.collapsed {
+    aspect-ratio: 234/120;
+}
+.collapsed button {
+    display: none;
+}
+.photo {
+    width: 100%;
+    object-fit: cover;
+}
+
+.btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    width: 24px;
+    height: 24px;
+    background: color-mix(in srgb, var(--dark-300) 50%, transparent);
+}
+.btn.next {
+    right: 6px;
+}
+.btn.previous {
+    left: 6px;
+}
+.arrow {
+    color: white;
+}
+.slider_container {
+    padding: 3px 8px;
+    display: flex;
+    gap: 5px;
+    height: 12px;
+    background: color-mix(in srgb, var(--dark-300) 50%, transparent);
+    border-radius: 2px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 8px;
+}
+.sliderBtn {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: none;
+    background-color: white;
+}
+.active {
+    background-color: var(--primary-500);
+}

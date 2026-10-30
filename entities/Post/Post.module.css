@@ -1,0 +1,71 @@
+/* общий контейнер */
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.userContainer {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.descContainer {
+    position: relative;
+}
+.userName {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    color: var(--light-100);
+    align-self: center;
+}
+.time {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 133%;
+    color: var(--light-900);
+    margin-bottom: 3px;
+}
+.descripion {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 171%;
+    color: var(--light-100);
+}
+.measure {
+    width: 100%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 171%;
+    position: absolute;
+    visibility: hidden;
+    pointer-events: none;
+}
+.collapsed {
+    display: block;
+    -webkit-line-clamp: unset;
+    line-clamp: unset;
+    -webkit-box-orient: unset;
+    overflow: visible;
+}
+.btn {
+    appearance: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    background: none;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 171%;
+    text-decoration: underline;
+    text-decoration-skip-ink: none;
+    color: var(--primary-500);
+}
