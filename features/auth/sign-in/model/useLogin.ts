@@ -53,7 +53,7 @@ export const useLogin = () => {
                 password,
             }).unwrap()  
             localStorage.setItem('accessToken', data.accessToken)
-            router.push('/profile')
+            router.push('/')
         } catch (err) {
 
             const error = err as FetchBaseQueryError
