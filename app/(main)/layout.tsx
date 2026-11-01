@@ -1,20 +1,19 @@
 import { Header } from '@/widgets/Header/Header'
 import { Sidebar } from '@/widgets/Sidebar/Sidebar'
+import styles from './MainLayout.module.css'
 
 export default function MainLayout({
-    children,
-}: Readonly<{
+                                       children,
+                                   }: Readonly<{
     children: React.ReactNode
 }>) {
     return (
-        <>
+        <div className={styles.layout}>
             <Header />
 
-            <div>
-                <Sidebar />
+            <Sidebar />
 
-                <main>{children}</main>
-            </div>
-        </>
+            <main className={styles.main}>{children}</main>
+        </div>
     )
 }

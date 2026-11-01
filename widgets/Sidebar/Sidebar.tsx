@@ -1,70 +1,76 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
+import Link from 'next/link'
 
-import { LogoutButton } from '@/features/auth/log-out/ui/LogoutButton';
-import { CreatePostModal } from '@/features/post/create-post/ui';
+import { LogoutButton } from '@/features/auth/log-out/ui/LogoutButton'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
+import { Icon } from '@/shared/ui/Icon/Icon'
 
-import { Icon } from '@/shared/ui/Icon/Icon';
-
-import styles from './Sidebar.module.css';
-
-const mainNavItems = [
-    { label: 'Feed', iconName: 'home-outline' },
-    { label: 'Create', iconName: 'plus-square-outline' },
-    { label: 'My Profile', iconName: 'person-outline' },
-    { label: 'Messenger', iconName: 'message-circle-outline' },
-    { label: 'Search', iconName: 'search-outline' },
-];
-
-const secondaryNavItems = [
-    { label: 'Statistics', iconName: 'trending-up-outline' },
-    { label: 'Favorites', iconName: 'bookmark-outline' },
-];
+import styles from './Sidebar.module.css'
+import { useState } from 'react'
+import { CreatePostModal } from '@/features/post/create-post/ui'
 
 export const Sidebar = () => {
-    const [isCreatePostOpen, setIsCreatePostOpen] = useState(false);
+    const { data: me } = useGetMeQuery()
+    const [isCreatePostOpen, setIsCreatePostOpen] = useState(false)
 
     return (
         <>
             <aside className={styles.sidebar}>
-                <nav className={styles.nav}>
-                    {mainNavItems.map((item) => (
-                        <button
-                            key={item.label}
-                            type="button"
-                            className={styles.navItem}
-                            onClick={
-                                item.label === 'Create'
-                                    ? () => setIsCreatePostOpen(true)
-                                    : undefined
-                            }
-                        >
-                            <Icon name={item.iconName} size={24} />
-                            <span>{item.label}</span>
+                <div className={styles.sidebarContent}>
+                    <nav className={styles.nav}>
+                        <Link href="/feed" className={styles.navItem}>
+                            <Icon name="home-outline" size={24} />
+                            <span>Feed</span>
+                        </Link>
+
+                        <button className={styles.navItem} onClick={() => setIsCreatePostOpen(true)}>
+                            <Icon name={'plus-square-outline'} size={24} />
+                            <span>Create</span>
                         </button>
-                    ))}
 
-                    <div className={styles.separatorBlock}>
-                        {secondaryNavItems.map((item) => (
-                            <button
-                                key={item.label}
-                                type="button"
-                                className={styles.navItem}
-                            >
-                                <Icon name={item.iconName} size={24} />
-                                <span>{item.label}</span>
-                            </button>
-                        ))}
+                        <Link
+                            href={me?.id ? `/profile/${me.id}` : '#'}
+                            className={`${styles.navItem} ${!me?.id ? styles.disabled : ''}`}
+                            aria-disabled={!me?.id}
+                            tabIndex={me?.id ? 0 : -1}
+                            onClick={(e) => {
+                                if (!me?.id) e.preventDefault()
+                            }}
+                        >
+                            <Icon name="person-outline" size={24} />
+                            <span>My Profile</span>
+                        </Link>
+
+                        <Link href="/messenger" className={styles.navItem}>
+                            <Icon name="message-circle-outline" size={24} />
+                            <span>Messenger</span>
+                        </Link>
+
+                        <Link href="/search" className={styles.navItem}>
+                            <Icon name="search-outline" size={24} />
+                            <span>Search</span>
+                        </Link>
+
+                        <div className={styles.separatorBlock}>
+                            <Link href="/statistics" className={styles.navItem}>
+                                <Icon name="trending-up-outline" size={24} />
+                                <span>Statistics</span>
+                            </Link>
+
+                            <Link href="/favorites" className={styles.navItem}>
+                                <Icon name="bookmark-outline" size={24} />
+                                <span>Favorites</span>
+                            </Link>
+                        </div>
+                    </nav>
+
+                    <div className={styles.bottomSection}>
+                        <LogoutButton />
                     </div>
-                </nav>
-
-                <div className={styles.bottomSection}>
-                    <LogoutButton />
                 </div>
             </aside>
-
             {isCreatePostOpen && <CreatePostModal onClose={() => setIsCreatePostOpen(false)} />}
         </>
-    );
-};
+    )
+}
