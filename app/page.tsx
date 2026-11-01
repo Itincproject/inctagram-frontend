@@ -1,5 +1,5 @@
-import { StaticHomeContent } from '@/pages/static-home-content/ui'
 import {HomeClientLayout} from "@/pages/home-client-layout/HomeClientLayout";
+import {StaticHomeContent} from "@/pages/static-home-content/ui/StaticHomeContent";
 
 export default function HomePage() {
     return (
