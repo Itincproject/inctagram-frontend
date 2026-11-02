@@ -33,6 +33,16 @@ export type author = {
     username: string
 }
 
+export type Post = {
+    id: number
+    description: string
+    createdAt: string
+    updatedAt: string
+    author: author
+    images: image[]
+}
+
+export type GetPostByIdResponse = Post
 
 export type GetPostsByUserIdRequest = {
     userId: string

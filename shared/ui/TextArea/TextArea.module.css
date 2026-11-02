@@ -69,9 +69,10 @@
 }
 
 .label {
+	margin-bottom: 6px;
 	font-family: inherit;
 	font-size: 14px;
-	font-weight: 600;
+	font-weight: 300;
 	color: #8D9094;
 	transition: all 0.2s ease;
 }

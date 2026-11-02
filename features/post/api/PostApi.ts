@@ -3,6 +3,7 @@ import { baseApi } from '@/shared/api/baseApi'
 import type {
     CreatePostRequest,
     CreatePostResponse,
+    GetPostByIdResponse,
     GetPostsByUserIdResponse,
     UploadPostImageResponse
 } from './postApi.types'
@@ -71,6 +72,29 @@ export const postApi = baseApi.injectEndpoints({
             }),
             invalidatesTags: ['Post'],
         }),
+
+        getPostById: builder.query<GetPostByIdResponse, number>({
+            query: (postId) => ({
+                url: `/posts/${postId}`,
+                method: 'GET',
+            }),
+            providesTags: (result, error, postId) => [
+                { type: 'Post', id: result?.id ?? postId },
+            ],
+        }),
+
+        editPost: builder.mutation<void, { postId: number; description: string }>({
+            query: ({ postId, description }) => ({
+                url: `/posts/${postId}`,
+                method: 'PATCH',
+                body: { description },
+                credentials: 'include',
+            }),
+            invalidatesTags: (result, error, { postId }) => [
+                { type: 'Post', id: postId },
+                { type: 'Post', id: 'LIST' }, 
+            ],
+        }),
     }),
 })
 
@@ -79,4 +103,6 @@ export const {
     useCreatePostMutation,
     useDeletePostMutation,
     useGetPostsByUserIdInfiniteQuery,
+    useGetPostByIdQuery,   
+    useEditPostMutation,    
 } = postApi
