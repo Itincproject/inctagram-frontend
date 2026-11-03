@@ -4,11 +4,12 @@ import { useGetMeQuery } from '@/features/auth/api/authApi'
 import { getCommonErrorMessage } from '@/shared/libs/getCommonErrorMessage'
 import { isFetchBaseQueryError } from '@/shared/libs/isFetchBaseQueryError'
 import { Header } from '@/widgets/Header'
-import { ReactNode } from 'react'
+import { ReactNode, useEffect } from 'react'
 import s from './HomeClientLayout.module.css'
 import { Sidebar } from '@/widgets/Sidebar/Sidebar'
 
 import { Alert } from '@/shared/ui/Alert/Alert'
+import { useRouter } from 'next/navigation'
 
 type Props = {
     children: ReactNode
@@ -25,6 +26,17 @@ export const HomeClientLayout = ({ children }: Props) => {
 
         if (messageError) alertError = messageError
     }
+
+    const router = useRouter()
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            router.refresh()
+        }, 60000)
+
+        return () => clearInterval(intervalId)
+    }, [router])
+
     return (
         <div className={s.page}>
             <Header isAuth={isAuth} />
