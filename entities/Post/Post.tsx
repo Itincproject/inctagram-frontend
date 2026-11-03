@@ -5,7 +5,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import s from './Post.module.css'
 import { formatPostDate } from '@/shared/libs/formatPostDate'
 import { PostCard } from '@/shared/ui/PostCard'
-import { ItemType } from '@/pages/static-home-content/model/types'
+import { ItemType } from '@/widgets/static-home-content/model/types'
 import avatar from '@/public/vercel.svg'
 
 type Props = {

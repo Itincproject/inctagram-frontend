@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { Icon } from '../Icon/Icon'
 import s from './PostCard.module.css'
 import { useState } from 'react'
-import { ImageType } from '@/pages/static-home-content/model/types'
+import { ImageType } from '@/widgets/static-home-content/model/types'
 
 type Prop = {
     postPhoto: ImageType[]
