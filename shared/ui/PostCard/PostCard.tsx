@@ -40,15 +40,17 @@ export const PostCard = ({ postPhoto, isCollapsed }: Prop) => {
                     <Icon name="arrow-ios-forward-outline" className={s.arrow} />
                 </button>
             )}
-            <div className={s.slider_container}>
-                {postPhoto.map((_, index) => (
-                    <button
-                        key={index}
-                        onClick={() => setActiveIndex(index)}
-                        className={` ${s.sliderBtn} ${index === activeIndex ? s.active : ''}`}
-                    />
-                ))}
-            </div>
+            {postPhoto.length > 1 && (
+                <div className={s.slider_container}>
+                    {postPhoto.map((_, index) => (
+                        <button
+                            key={index}
+                            onClick={() => setActiveIndex(index)}
+                            className={` ${s.sliderBtn} ${index === activeIndex ? s.active : ''}`}
+                        />
+                    ))}
+                </div>
+            )}
         </div>
     )
 }

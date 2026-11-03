@@ -1,5 +1,5 @@
 .sidebar {
-    position: fixed;
+    position: sticky;
     top: 60px;
     left: 0;
     width: 220px;
@@ -7,7 +7,7 @@
     box-sizing: border-box;
     padding-top: 72px;
     padding-bottom: 36px;
-    background-color: #0D0D0D;
+    background-color: #0d0d0d;
     border-right: 1px solid #262626;
     display: flex;
     justify-content: center;
@@ -45,16 +45,16 @@
 }
 
 .navItem:focus-visible {
-    outline: 2px solid #2F68CC;
+    outline: 2px solid #2f68cc;
     border-radius: 2px;
 }
 
 .navItem:hover {
-    color: #73A5FF;
+    color: #73a5ff;
 }
 
 .disabled {
-    color: #4C4C4C;
+    color: #4c4c4c;
     cursor: not-allowed;
     pointer-events: none;
 }
@@ -76,5 +76,5 @@
 }
 
 .active {
-    color: #397DF6;
+    color: #397df6;
 }
