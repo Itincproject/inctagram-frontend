@@ -1,4 +1,4 @@
-import { PostsResponse } from '../model/types'
+import { PostsResponse } from '@/widgets/static-home-content/model/types'
 
 export async function getPosts(): Promise<PostsResponse> {
     console.log('getPosts called')
