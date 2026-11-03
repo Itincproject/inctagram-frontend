@@ -13,7 +13,7 @@ import { getCommonErrorMessage } from '@/shared/libs/getCommonErrorMessage'
 import { isFetchBaseQueryError } from '@/shared/libs/isFetchBaseQueryError'
 import { TurnstileCaptcha } from '../../captcha-protection/TurnstileCaptcha'
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export const ForgotPasswordForm = () => {
     const [email, setEmail] = useState('')
