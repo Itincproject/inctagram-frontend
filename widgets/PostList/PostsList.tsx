@@ -1,8 +1,12 @@
 import { Post } from '@/entities/Post'
 import { ItemType } from '@/pages/static-home-content/model/types'
 
+export type PostType = ItemType & {
+    publishTime: string
+}
+
 type Props = {
-    posts: ItemType[]
+    posts: PostType[]
     className?: string
 }
 
