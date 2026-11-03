@@ -6,7 +6,7 @@ import type { LoginErrors } from './types'
 import { useLoginMutation } from '@/features/auth/sign-in/api/loginApi'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export const useLogin = () => {
     const router = useRouter()
