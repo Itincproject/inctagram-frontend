@@ -5,12 +5,16 @@ import { useRouter } from 'next/navigation'
 import type { LoginErrors } from './types'
 import { useLoginMutation } from '@/features/auth/sign-in/api/loginApi'
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import {setIsLoggedInAC} from "@/app/providers/app-slice";
+import {useAppDispatch} from "@/app/providers/useAppDispatch";
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
 export const useLogin = () => {
     const router = useRouter()
-    const [login, { isLoading }] = useLoginMutation() 
+    const [login, { isLoading }] = useLoginMutation()
+
+    const dispatch = useAppDispatch()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -53,6 +57,7 @@ export const useLogin = () => {
                 password,
             }).unwrap()  
             localStorage.setItem('accessToken', data.accessToken)
+            dispatch(setIsLoggedInAC({ isLoggedIn: true }))
             router.push('/')
         } catch (err) {
 
