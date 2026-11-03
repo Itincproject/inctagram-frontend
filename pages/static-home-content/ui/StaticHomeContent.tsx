@@ -4,6 +4,7 @@ import { getPosts } from '../api/getPosts'
 import { Alert } from '@/shared/ui/Alert/Alert'
 import { PostsList } from '@/widgets/PostList'
 import { PostsResponse } from '../model/types'
+import { formatPostDate } from '@/shared/libs/formatPostDate'
 
 export async function StaticHomeContent() {
     let result: PostsResponse | undefined
@@ -21,12 +22,17 @@ export async function StaticHomeContent() {
             errorMessage = 'Something went wrong. Please, try later again.'
         }
     }
+
+    const posts = result?.items.map((post) => ({
+        ...post,
+        publishTime: formatPostDate(post.createdAt),
+    }))
     return (
         <div className={s.container}>
-            {result && (
+            {result && posts && (
                 <>
                     <UserCount totalCount={result.totalUsers} />
-                    <PostsList posts={result.items} className={s.posts} />
+                    <PostsList posts={posts} className={s.posts} />
                 </>
             )}
 
