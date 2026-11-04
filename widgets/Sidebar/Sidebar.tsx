@@ -2,13 +2,13 @@
 
 import Link from 'next/link'
 
-import { LogoutButton } from '@/features/auth/log-out/ui/LogoutButton'
-import { useGetMeQuery } from '@/features/auth/api/authApi'
-import { Icon } from '@/shared/ui/Icon/Icon'
+import {LogoutButton} from '@/features/auth/log-out/ui/LogoutButton'
+import {useGetMeQuery} from '@/features/auth/api/authApi'
+import {Icon} from '@/shared/ui/Icon/Icon'
 
 import styles from './Sidebar.module.css'
-import { useState } from 'react'
-import { CreatePostModal } from '@/features/post/create-post/ui'
+import {useState} from 'react'
+import {CreatePostModal} from '@/features/post/create-post/ui'
 
 export const Sidebar = () => {
     const { data: me } = useGetMeQuery()

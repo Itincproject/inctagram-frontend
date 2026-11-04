@@ -39,7 +39,7 @@ export const HomeClientLayout = ({ children }: Props) => {
 
     return (
         <div className={s.page}>
-            <Header isAuth={isAuth} />
+            <Header />
             <div className={`${s.main_container} ${isAuth ? s.authorized : s.unauthorized}`}>
                 {isAuth && <Sidebar />}
                 <main className={s.static_part}>{children}</main>

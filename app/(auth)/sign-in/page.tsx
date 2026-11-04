@@ -18,13 +18,12 @@ export default function SignIn() {
         setShowPassword,
         errors,
         handleEmailBlur,
-        handlePasswordBlur,
         handleSubmit,
     } = useLogin()
 
     return (
         <main className={styles.page}>
-            <section className={styles.card}>
+            <section className={`${styles.card} ${Object.values(errors).some(Boolean) ? styles.cardWithError : ''}`}>
                 <h1 className={styles.title}>Sign In</h1>
 
                 <div className={styles.socialButtons}>
@@ -58,7 +57,6 @@ export default function SignIn() {
                                 placeholder="**********"
                                 value={password}
                                 onChange={(event) => setPassword(event.target.value)}
-                                onBlur={handlePasswordBlur}
                                 error={errors.password}
                                 className={styles.passwordInput}
                             />

@@ -2,7 +2,8 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 96px;
     background: #000;
 }
 
@@ -16,6 +17,10 @@
     background: #171717;
     border: 1px solid #333;
     border-radius: 2px;
+}
+
+.cardWithError {
+    height: 528px;
 }
 
 .title {
@@ -70,6 +75,10 @@
 
 .passwordInput input {
     padding-right: 40px;
+}
+
+.passwordInput input::placeholder {
+    font-size: 18px;
 }
 
 .passwordIcon {
@@ -129,8 +138,13 @@
     line-height: 24px;
 }
 
+.signUp span {
+    width: 177px;
+    text-align: center;
+}
+
 .signUpButton {
-    margin-top: 0;
+    margin-top: 15px;
     padding: 0;
     border: none;
     background: transparent;

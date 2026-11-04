@@ -1,6 +1,6 @@
 import { UserCount } from '@/widgets/UserCount'
 import s from './StaticHomeContent.module.css'
-import { getPosts } from '../api/getPosts'
+import { getPosts } from '@/widgets/static-home-content/api/getPosts'
 import { Alert } from '@/shared/ui/Alert/Alert'
 import { PostsList } from '@/widgets/PostList'
 import { PostsResponse } from '../model/types'

@@ -4,6 +4,8 @@ import { useState } from 'react'
 import { Select, SelectOption } from '@/shared/ui/Select/Select'
 import styles from './Header.module.css'
 import { useRouter } from 'next/navigation'
+import {selectIsLoggedIn} from "@/app/providers/app-slice";
+import {useAppSelector} from "@/app/providers/useAppSelector";
 
 const languageOptions: SelectOption[] = [
     {
@@ -17,11 +19,12 @@ const languageOptions: SelectOption[] = [
         flag: 'Flag-Russia',
     },
 ]
-type Prop = {
-    isAuth: boolean
-}
-export const Header = ({ isAuth }: Prop) => {
+
+export const Header = () => {
     const [language, setLanguage] = useState('en')
+
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+
 
     const router = useRouter()
 
@@ -30,7 +33,7 @@ export const Header = ({ isAuth }: Prop) => {
             <div className={styles.logo}>Inctagram</div>
 
             <div className={styles.rightControls}>
-                {isAuth && (
+                {isLoggedIn && (
                     <button type="button" className={styles.notificationButton} aria-label="Уведомления"></button>
                 )}
 
@@ -42,7 +45,7 @@ export const Header = ({ isAuth }: Prop) => {
                     className={styles.languageSelect}
                 />
 
-                {!isAuth && (
+                {!isLoggedIn && (
                     <>
                         <button type="button" className={styles.buttonOutline} onClick={() => router.push('/sign-in')}>
                             Log in
