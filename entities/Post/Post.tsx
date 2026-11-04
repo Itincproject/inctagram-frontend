@@ -3,13 +3,12 @@
 import { UserAvatar } from '@/shared/ui/UserAvatar'
 import { useLayoutEffect, useRef, useState } from 'react'
 import s from './Post.module.css'
-import { formatPostDate } from '@/shared/libs/formatPostDate'
 import { PostCard } from '@/shared/ui/PostCard'
-import { ItemType } from '@/widgets/static-home-content/model/types'
 import avatar from '@/public/vercel.svg'
+import { PostType } from '@/widgets/PostList'
 
 type Props = {
-    post: ItemType
+    post: PostType
 }
 
 export const Post = ({ post }: Props) => {
@@ -17,7 +16,6 @@ export const Post = ({ post }: Props) => {
     const [isOverflowing, setIsOverFlowing] = useState(false)
     const [shortDescription, setShortDescription] = useState(post.description)
 
-    const publishTime = formatPostDate(post.createdAt)
     const measureRef = useRef<HTMLParagraphElement>(null)
     const descriptionRef = useRef<HTMLParagraphElement>(null)
 
@@ -65,7 +63,7 @@ export const Post = ({ post }: Props) => {
                 <UserAvatar photo={avatar} name={post.author.id} size={36} />
                 <span className={s.userName}>{post.author.username}</span>
             </div>
-            <time className={s.time}>{publishTime}</time>
+            <time className={s.time}>{post.publishTime}</time>
             <div className={s.descContainer}>
                 <p ref={descriptionRef} className={`${s.descripion} ${!isCollapsed ? s.collapsed : ''}`}>
                     {isCollapsed ? shortDescription : post.description}

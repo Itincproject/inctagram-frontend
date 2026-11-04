@@ -1,21 +1,22 @@
 'use client'
 
-import {useGetMeQuery} from '@/features/auth/api/authApi'
-import {getCommonErrorMessage} from '@/shared/libs/getCommonErrorMessage'
-import {isFetchBaseQueryError} from '@/shared/libs/isFetchBaseQueryError'
-import {Header} from '@/widgets/Header'
-import {ReactNode} from 'react'
+import { useGetMeQuery } from '@/features/auth/api/authApi'
+import { getCommonErrorMessage } from '@/shared/libs/getCommonErrorMessage'
+import { isFetchBaseQueryError } from '@/shared/libs/isFetchBaseQueryError'
+import { Header } from '@/widgets/Header'
+import { ReactNode, useEffect } from 'react'
 import s from './HomeClientLayout.module.css'
-import {Sidebar} from '@/widgets/Sidebar/Sidebar'
+import { Sidebar } from '@/widgets/Sidebar/Sidebar'
 
-import {Alert} from '@/shared/ui/Alert/Alert'
+import { Alert } from '@/shared/ui/Alert/Alert'
+import { useRouter } from 'next/navigation'
 
 type Props = {
     children: ReactNode
 }
 
-export const HomeClientLayout = ({children}: Props) => {
-    const {data, error, isLoading, isError} = useGetMeQuery()
+export const HomeClientLayout = ({ children }: Props) => {
+    const { data, error, isLoading, isError } = useGetMeQuery()
     let alertError = ''
 
     const isAuth = Boolean(data) && !isError
@@ -26,14 +27,24 @@ export const HomeClientLayout = ({children}: Props) => {
         if (messageError) alertError = messageError
     }
 
+    const router = useRouter()
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            router.refresh()
+        }, 60000)
+
+        return () => clearInterval(intervalId)
+    }, [router])
+
     return (
         <div className={s.page}>
-            <Header/>
+            <Header />
             <div className={`${s.main_container} ${isAuth ? s.authorized : s.unauthorized}`}>
-                {isAuth && <Sidebar/>}
+                {isAuth && <Sidebar />}
                 <main className={s.static_part}>{children}</main>
             </div>
-            {alertError && <Alert variant="error" message={alertError}/>}
+            {alertError && <Alert variant="error" message={alertError} />}
         </div>
     )
 }
