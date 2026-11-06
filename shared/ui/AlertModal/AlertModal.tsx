@@ -10,14 +10,16 @@ type Props = {
     onClose?: () => void
     onConfirm?: () => void
     isOneBtn?: boolean  
+    width?: string | number;  
+    height?: string | number; 
 }
 
-export const AlertModal = ({ open, title, text, email, onClose, onConfirm, isOneBtn }: Props) => {
+export const AlertModal = ({ open, title, text, email, onClose, onConfirm, width, height, isOneBtn }: Props) => {
     return (
         <>
             {open && (
                 <div className={styles.overlay}>
-                    <div className={styles.content}>
+                    <div className={styles.content} style={{ width, height }}>
                         <div className={styles.header}>
                             <h2 className={styles.title}>{title}</h2>
 
