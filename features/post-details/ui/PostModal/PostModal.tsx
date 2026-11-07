@@ -33,7 +33,7 @@ export const PostModal = ({ isOpen, onClose, postId }: Props) => {
     const [editValue, setEditValue] = useState('')
     const [showConfirmClose, setShowConfirmClose] = useState(false)
 
-    const isDirty = post ? editValue.trim() !== post.description.trim() : false
+    const isDirty = post ? editValue.trim() !== (post.description || '').trim() : false
 
     const startEditing = () => {
         setOpen(false)
@@ -51,7 +51,7 @@ export const PostModal = ({ isOpen, onClose, postId }: Props) => {
     }
 
     const handleSave = async () => {
-        if (!editValue.trim() || editValue.length > 500) return 
+        if (editValue.length > 500) return 
         
         if (!isDirty) {
             setIsEditing(false)
@@ -163,7 +163,7 @@ export const PostModal = ({ isOpen, onClose, postId }: Props) => {
                                             title={isSaving ? 'Saving...' : 'Save Changes'}
                                             variant="primary"
                                             onClick={handleSave}
-                                            disabled={isSaving || !editValue.trim()}
+                                            disabled={isSaving}
                                         />
                                     </div>
                                 </div>
@@ -187,8 +187,10 @@ export const PostModal = ({ isOpen, onClose, postId }: Props) => {
 
                 {showConfirmClose && (
                     <AlertModal
+                        width={486}
+                        height={240}
                         open={showConfirmClose}
-                        title="Finish editing?"
+                        title="Close Post"
                         text={CONFIRM_TEXT}
                         onClose={() => setShowConfirmClose(false)}
                         onConfirm={() => {
