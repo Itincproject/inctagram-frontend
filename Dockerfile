@@ -1,23 +1,33 @@
-#Устанавливаем зависимости
-FROM node:20.11-alpine as dependencies
+# Устанавливаем зависимости
+FROM node:22-alpine AS dependencies
 WORKDIR /app
-COPY package*.json ./
-RUN yarn install
 
-#Билдим приложение
-#Кэширование зависимостей — если файлы в проекте изменились,
-#но package.json остался неизменным, то стейдж с установкой зависимостей повторно не выполняется, что экономит время.
-FROM node:20.11-alpine as builder
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+
+# Билдим приложение
+# Если исходники изменились, но зависимости остались прежними,
+# Docker использует закэшированный предыдущий слой dependencies.
+FROM node:22-alpine AS builder
 WORKDIR /app
+
 COPY . .
 COPY --from=dependencies /app/node_modules ./node_modules
+
 RUN yarn build:production
 
-#Стейдж запуска
-FROM node:20.11-alpine as runner
-USER node
+
+# Стейдж запуска
+FROM node:22-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV production
+
+ENV NODE_ENV=production
+
 COPY --from=builder /app/ ./
+
+USER node
+
 EXPOSE 3000
+
 CMD ["yarn", "start"]
