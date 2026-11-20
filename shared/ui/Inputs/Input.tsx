@@ -8,9 +8,10 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
     error?: string
     icon?: ReactNode
     iconOnClick?: () => void
+    required?: boolean
 }
 
-export const Input = ({ label, error, icon, iconOnClick, className, placeholder, ...props }: InputProps) => {
+export const Input = ({ label, error, icon, iconOnClick, className, placeholder, required, ...props }: InputProps) => {
     const [isClicked, setIsClicked] = useState(false)
 
     return (
@@ -18,6 +19,7 @@ export const Input = ({ label, error, icon, iconOnClick, className, placeholder,
             {label && (
                 <label className={`${styles.label} ${props.disabled ? styles.labelDisabled : ''}`} htmlFor={props.id}>
                     {label}
+                    {required && <span style={{ color: '#cc1439', marginLeft: '2px' }}>*</span>}
                 </label>
             )}
 

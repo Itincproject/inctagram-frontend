@@ -10,11 +10,12 @@ import styles from './DatePicker.module.css'
 export type DatePickerProps = {
     mode?: 'single' | 'range'
     label?: string
-    error?: string
+    error?: React.ReactNode
     disabled?: boolean
     placeholder?: string
     value?: Date | DateRange
     onChange?: (value: Date | DateRange | undefined) => void
+    className?: string
 }
 
 const formatDate = (date: Date) =>
@@ -32,6 +33,7 @@ export const DatePicker = ({
     placeholder = 'DD/MM/YYYY',
     value: controlledValue,
     onChange,
+    className
 }: DatePickerProps) => {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedDate, setSelectedDate] = useState<Date>()
@@ -73,7 +75,7 @@ export const DatePicker = ({
         .join(' ')
 
     return (
-        <div ref={wrapperRef} className={styles.wrapper}>
+        <div ref={wrapperRef} className={`${styles.wrapper} ${className || ''}`}>
             <span className={styles.label}>{label}</span>
 
             <button
