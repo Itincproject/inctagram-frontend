@@ -17,18 +17,18 @@ export type CreatePostResponse = {
     description: string
     createdAt: string
     updatedAt: string
-    author: author
-    images: image []
+    author: Author
+    images: Image[]
 }
 
-export type image = {
+export type Image = {
     id: string
     url: string
     width: number
     height: number
 }
 
-export type author = {
+export type Author = {
     id: string
     username: string
 }
@@ -38,8 +38,8 @@ export type Post = {
     description: string
     createdAt: string
     updatedAt: string
-    author: author
-    images: image[]
+    author: Author
+    images: Image[]
 }
 
 export type GetPostByIdResponse = Post
@@ -50,13 +50,6 @@ export type GetPostsByUserIdRequest = {
 }
 
 export type GetPostsByUserIdResponse = {
-    items: {
-        id: number
-        description: string
-        createdAt: string
-        updatedAt: string
-        author: author
-        images: image []
-    } []
+    items: Post[]
     nextCursor: string
 }
