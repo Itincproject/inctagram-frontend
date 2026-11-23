@@ -1,153 +1,59 @@
-'use client'
-
-import Image from 'next/image'
-import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
-import { useParams } from 'next/navigation'
-import { skipToken } from '@reduxjs/toolkit/query'
 import styles from './page.module.css'
-import { useGetMeQuery } from '@/features/auth/api/authApi'
-import { useGetPostsByUserIdInfiniteQuery } from '@/features/post/api/PostApi'
-import {PostModal} from "@/features/post-details/ui/PostModal";
+import { getPostsByUserId } from './api/getPostsByUserId'
+import { Alert } from '@/shared/ui/Alert/Alert'
+import { ProfilePosts } from '@/pages/profile/ui/ProfilePosts/ProfilePosts'
+import { GetPostsByUserIdResponse } from '@/features/post/api/postApi.types'
+import { ProfileInfo } from '@/pages/profile/ui/ProfileInfo/ProfileInfo'
+import { ProfileActions } from '@/pages/profile/ui/ProfileActions/ProfileActions'
+import { getUserById } from './api/getUserById'
+import { User } from '@/features/user/api/userApi.types'
 
+type ProfilePageProps = {
+    params: Promise<{ userId: string }>
+}
 
-const ProfilePage = () => {
-    const params = useParams<{ userId: string }>()
-    const observerRef = useRef<HTMLDivElement | null>(null)
+const ProfilePage = async ({ params }: ProfilePageProps) => {
+    const { userId } = await params
 
-    const [selectedPostId, setSelectedPostId] = useState<number | null>(null)
+    let userErrorMessage = ''
+    let postsErrorMessage = ''
+    let userData: User | null = null
+    let postData: GetPostsByUserIdResponse | null = null
 
-    const {
-        data,
-        fetchNextPage,
-        hasNextPage,
-        isFetchingNextPage,
-    } = useGetPostsByUserIdInfiniteQuery(
-        params?.userId
-            ? { userId: params.userId }
-            : skipToken
-    )
+    const result = await Promise.allSettled([getUserById(userId), getPostsByUserId(userId)])
 
-    const { data: me, isLoading: isMeLoading } = useGetMeQuery()
-
-    const isOwner = !isMeLoading && !!params?.userId && me?.id === params.userId
-
-    const countFollowing = 1000
-    const countFollowers = 10000
-    const countPublications = 100000
-
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && hasNextPage && !isFetchingNextPage) {
-                    fetchNextPage()
-                }
-            },
-            {
-                rootMargin: '0px',
-                threshold: 0,
-            }
-        )
-
-        const currentElement = observerRef.current
-
-        if (currentElement) {
-            observer.observe(currentElement)
+    if (result[0].status === 'fulfilled') {
+        userData = result[0].value
+    } else {
+        const error = result[0].reason
+        if (error instanceof TypeError) {
+            userErrorMessage = "Couldn't load profile. Check your connection and try again."
+        } else if (error instanceof Error && error.message.includes('Failed to fetch user:')) {
+            userErrorMessage = 'Failed to load profile. Please try again later'
+        } else {
+            userErrorMessage = 'Something went wrong. Please, try later again.'
         }
-
-        return () => {
-            observer.disconnect()
+    }
+    if (result[1].status === 'fulfilled') {
+        postData = result[1].value
+    } else {
+        const error = result[1].reason
+        if (error instanceof TypeError) {
+            postsErrorMessage = "Couldn't load posts. Check your connection and try again."
+        } else if (error instanceof Error && error.message.includes('HTTP error:')) {
+            postsErrorMessage = 'Failed to load posts. Please try again later'
+        } else {
+            postsErrorMessage = 'Something went wrong. Please, try later again.'
         }
-    }, [fetchNextPage, hasNextPage, isFetchingNextPage])
+    }
 
     return (
-        <div>
-            <div className={styles.userProfile}>
-                <div className={styles.userPhoto}>
-                    <Image
-                        src="/default-avatar.png"
-                        alt="Default profile avatar"
-                        width={204}
-                        height={204}
-                    />
-                </div>
-
-                <div className={styles.userDetails}>
-                    <div className={styles.userDetailsTop}>
-                        <span className={styles.userName}>
-                            {me?.username}
-                        </span>
-
-                        <Link
-                            href="/profile-settings"
-                            className={`${styles.profileSettingsLink} ${!isOwner ? styles.hidden : ''}`}
-                        >
-                            Profile Settings
-                        </Link>
-                    </div>
-
-                    <div className={styles.userDetailsMiddle}>
-                        <div className={styles.userActivityBlock}>
-                            <span className={styles.userActivityCount}>
-                                {countFollowing.toLocaleString('ru-RU')}
-                            </span>
-                            <span>Following</span>
-                        </div>
-
-                        <div className={styles.userActivityBlock}>
-                            <span className={styles.userActivityCount}>
-                                {countFollowers.toLocaleString('ru-RU')}
-                            </span>
-                            <span>Followers</span>
-                        </div>
-
-                        <div className={styles.userActivityBlock}>
-                            <span className={styles.userActivityCount}>
-                                {countPublications.toLocaleString('ru-RU')}
-                            </span>
-                            <span>Publications</span>
-                        </div>
-                    </div>
-
-                    <div className={styles.userDetailsBottom}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                        ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    </div>
-                </div>
-            </div>
-
-
-            <div className={styles.postsGrid}>
-                {data?.pages.flatMap(page =>
-                    page.items.flatMap(post =>
-                        post.images.map(image => (
-                            <Image
-                                key={image.id}
-                                src={image.url}
-                                alt={post.description || 'Post'}
-                                width={234}
-                                height={228}
-                                className={styles.postImage}
-                                onClick={() => setSelectedPostId(post.id)}
-                            />
-                        ))
-                    )
-                )}
-            </div>
-
-            <div ref={observerRef} className={styles.observerTarget}>
-                {isFetchingNextPage && <p>Loading...</p>}
-            </div>
-
-            {selectedPostId !== null && (
-                <PostModal
-                    isOpen={true}
-                    postId={selectedPostId}
-                    onClose={() => setSelectedPostId(null)}
-                />
-            )}
+        <div className={styles.userProfile}>
+            {userData && <ProfileInfo userProfile={userData} />}
+            {postData && <ProfilePosts initialData={postData} userId={userId} />}
+            {postsErrorMessage && <Alert variant="error" message={postsErrorMessage} />}
+            {userErrorMessage && <Alert variant="error" message={userErrorMessage} />}
+            <ProfileActions profileId={userId} className={styles.actions} />
         </div>
     )
 }
