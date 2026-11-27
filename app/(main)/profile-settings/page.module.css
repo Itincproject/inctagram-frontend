@@ -23,6 +23,7 @@
 }
 
 .avatarColumn {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -71,6 +72,34 @@
     width: 100%;
 }
 
-.fullWidthDatePicker>button {
+.fullWidthDatePicker > button {
     width: 100% !important;
 }
+.deleteBtn {
+    width: 16px;
+    height: 16px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--danger-300);
+    color: var(--light-100);
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    box-shadow: 0 0 0 4px var(--dark-900);
+}
+/* .deleteBtn svg {
+    position: relative;
+    z-index: 1;
+}
+.deleteBtn::before {
+    content: '';
+    border-radius: 50%;
+    background-color: var(--dark-900);
+    position: absolute;
+    inset: -4px;
+    z-index: 0;
+} */
