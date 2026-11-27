@@ -1,4 +1,4 @@
-import { User } from '@/features/user/api/userApi.types'
+import { User } from '@/shared/model/types/userApi.types'
 
 export const getUserById = async (userId: string): Promise<User> => {
     const res = await fetch(`https://gateway.itincproject.site/api/v1/users/${userId}`)

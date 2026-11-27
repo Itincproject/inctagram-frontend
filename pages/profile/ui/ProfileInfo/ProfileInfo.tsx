@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import s from './ProfileHeader.module.css'
-import { User } from '@/features/user/api/userApi.types'
+import { User } from '@/shared/model/types/userApi.types'
 
 import defaultAvatar from '@/public/default-avatar.png'
 

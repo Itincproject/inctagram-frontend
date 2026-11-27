@@ -6,7 +6,7 @@ import { GetPostsByUserIdResponse } from '@/features/post/api/postApi.types'
 import { ProfileInfo } from '@/pages/profile/ui/ProfileInfo/ProfileInfo'
 import { ProfileActions } from '@/pages/profile/ui/ProfileActions/ProfileActions'
 import { getUserById } from './api/getUserById'
-import { User } from '@/features/user/api/userApi.types'
+import { User } from '@/shared/model/types/userApi.types'
 
 type ProfilePageProps = {
     params: Promise<{ userId: string }>
