@@ -8,9 +8,10 @@ import styles from './Alert.module.css'
 type AlertProps = {
     variant: 'error' | 'success'
     message: string
+    className?: string
 }
 
-export const Alert = ({ variant, message }: AlertProps) => {
+export const Alert = ({ variant, message, className }: AlertProps) => {
     const [isVisible, setIsVisible] = useState(true)
 
     if (!isVisible) {
@@ -18,19 +19,14 @@ export const Alert = ({ variant, message }: AlertProps) => {
     }
 
     return (
-        <div className={`${styles.alert} ${styles[variant]}`}>
-      <span className={styles.message}>
-        {variant === 'error' && <strong>Error!</strong>}
-          {variant === 'error' && ' '}
-          {message}
-      </span>
+        <div className={`${styles.alert} ${styles[variant]} ${className ? className : ''}`}>
+            <span className={styles.message}>
+                {variant === 'error' && <strong>Error!</strong>}
+                {variant === 'error' && ' '}
+                {message}
+            </span>
 
-            <button
-                className={styles.close}
-                type="button"
-                onClick={() => setIsVisible(false)}
-                aria-label="Close alert"
-            >
+            <button className={styles.close} type="button" onClick={() => setIsVisible(false)} aria-label="Close alert">
                 <Icon name="close" size={24} />
             </button>
         </div>
