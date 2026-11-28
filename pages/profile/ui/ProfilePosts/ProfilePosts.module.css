@@ -1,0 +1,16 @@
+.postsContainer {
+    margin-top: 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 228px;
+    gap: 12px;
+}
+.postImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+.observerTarget {
+    height: 10px;
+}

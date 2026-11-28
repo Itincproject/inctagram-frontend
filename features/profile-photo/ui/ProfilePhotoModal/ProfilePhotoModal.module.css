@@ -1,0 +1,83 @@
+.overlay {
+    position: fixed;
+    height: 100vh;
+    width: 100%;
+    inset: 0;
+    z-index: 1000;
+    background: color-mix(in srgb, var(--dark-900) 60%, transparent);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 72px;
+}
+
+.modalContainer {
+    border: 1px solid var(--dark-100);
+    border-radius: 2px;
+    width: 492px;
+    height: 564px;
+    background: var(--dark-300);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+.header {
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--dark-100);
+}
+.header h2 {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 180%;
+    color: var(--light-100);
+}
+.closeBtn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: var(--light-100);
+}
+.mainContent {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin-bottom: 65px;
+}
+.imageWrapper {
+    position: relative;
+    width: 222px;
+    height: 228px;
+    background-color: var(--dark-500);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    margin-bottom: 60px;
+}
+
+.withImage {
+    width: 322px;
+    height: 340px;
+    background-color: var(--dark-100);
+    margin-top: 38px;
+}
+
+.saveBtn {
+    position: absolute;
+    bottom: 36px;
+    right: 18px;
+}
+.alert {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    top: 78px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}

@@ -1,0 +1,11 @@
+.profileSettingsLink {
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 150%;
+    padding: 6px 24px;
+    background-color: var(--dark-300);
+    transition: background-color 0.2s ease;
+}
+.profileSettingsLink:hover {
+    background-color: #3d3d3d;
+}
